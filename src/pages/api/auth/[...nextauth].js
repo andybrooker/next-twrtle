@@ -17,5 +17,10 @@ export default NextAuth({
             session.user.id = user.id
             return session
           }
+        },
+    events: {
+        async signIn(message) {
+            console.log(message)
         }
+    }
 });

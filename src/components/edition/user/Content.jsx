@@ -3,8 +3,8 @@ import { Box, Tabs, Tab } from '@mui/material'
 import { TabPanel, TabContext } from '@mui/lab'
 import { useRouter } from 'next/router'
 import useTweets from '../../../hooks/useTweets'
-import TweetText from '../../TweetText'
-import Tweet from '../../Tweet'
+import TweetPanel from './TweetPanel'
+import ThreadPanel from './ThreadPanel'
 
 export default function Content() {
 
@@ -19,6 +19,17 @@ export default function Content() {
 
     const { data, isLoading } = useTweets(author)
 
+    const checkDisabled = (obj) => {
+        let disabled = false
+
+        if (Object.keys(obj).length === 0) {
+            disabled = true
+        }
+
+        return disabled
+
+    }
+
     return (
         <Box sx={{ px: 8 }}>
             <TabContext value={value}>
@@ -28,12 +39,8 @@ export default function Content() {
                         <Tab value='threadsPanel' disableRipple label="Threads" />
                     </Tabs>
                 </Box>
-                <TabPanel value='tweetsPanel' index={0}>
-                    {isLoading ? 'Loading...' : data?.tweets?.data.map((tweet, index) => <Tweet key={index} data={tweet} includes={data?.tweets?.includes}/>)}
-                </TabPanel>
-                <TabPanel value='threadsPanel' index={0}>
-                    {isLoading ? 'Loading...' : Object.values(data?.threads).map((thread, index) => <Tweet key={index} data={thread?.data[0]}/>)}
-                </TabPanel>
+                <TweetPanel disabled={() => checkDisabled(data?.tweets)} isLoading={isLoading} tweets={data?.tweets} />
+                <ThreadPanel isLoading={isLoading} data={data} />
             </TabContext>
         </Box>
     )
