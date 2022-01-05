@@ -12,7 +12,7 @@ import LoadingPage from '../components/LoadingPage'
 
 export default function Home() {
 
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   useEffect(() => {

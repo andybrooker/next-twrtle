@@ -1,16 +1,15 @@
 import React from 'react'
 import { TabPanel } from '@mui/lab'
 import Tweet from '../../Tweet'
+import { Masonry } from '@mui/lab';
 
-export default function TweetPanel({isLoading, tweets}) {
-
-    const [disabled, setDisabled] = React.useState(false)
+export default function TweetPanel({ isLoading, tweets }) {
 
     if (!isLoading && Object.keys(tweets).length === 0) {
 
         return (
             <TabPanel value='tweetsPanel' index={0}>
-                    0
+                0
             </TabPanel>
         )
     }
@@ -18,7 +17,15 @@ export default function TweetPanel({isLoading, tweets}) {
     else {
         return (
             <TabPanel value='tweetsPanel' index={0}>
-                        {isLoading ? 'Loading...' : tweets?.data?.map((tweet, index) => <Tweet key={index} data={tweet} includes={tweets?.includes}/>)}
+                {isLoading ? 'Loading...' :
+                    <Masonry
+                    columns={{ sm: 1, md: 2}}
+                    spacing={2}
+                    defaultHeight={500}
+                    defaultColumns={2}
+                    defaultSpacing={2}>
+                        {tweets?.data?.map((tweet, index) => <Tweet key={index} data={tweet} includes={tweets?.includes} />)}
+                    </Masonry>}
             </TabPanel>
         )
     }

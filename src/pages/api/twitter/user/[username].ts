@@ -4,14 +4,10 @@ import getToken from '../../../../utils/getToken'
 import createTwitter from '../../../../utils/createTwitter'
 import { NextApiRequest, NextApiResponse } from 'next'
 import type { TwitterApi } from 'twitter-api-v2'
-import Redis from 'ioredis';
+import { redis } from '../../../../lib/clients/redis'
 import util from "util"
 
 const handler = nextConnect()
-
-const redis = new Redis()
-
-redis.get = util.promisify(redis.get)
 
 interface ExtendedRequest extends NextApiRequest {
     twitter: TwitterApi

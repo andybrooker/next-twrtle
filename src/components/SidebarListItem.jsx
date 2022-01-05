@@ -17,7 +17,7 @@ export default function SidebarListItem({ href, primary}) {
                 my: 1
             }}
             component="a"
-            selected={href === router.asPath}>
+            selected={href.toLowerCase() === router.asPath.toLowerCase()}>
             <ListItemText primary={primary}/>
         </ListItemButton>  
         </Link>

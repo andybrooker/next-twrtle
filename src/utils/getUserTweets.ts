@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { TweetV2, TwitterApi as Twitter } from 'twitter-api-v2'
 import { getExpiryDate, getStartAndEndTime } from './dateUtils';
-import Redis from 'ioredis';
+import { redis } from '../lib/clients/redis';
 import util from "util"
 
 interface ExtendedRequest extends NextApiRequest {
@@ -16,9 +16,6 @@ interface ExtendedRequest extends NextApiRequest {
         }
     }
 }
-
-const redis = new Redis()
-redis.get = util.promisify(redis.get)
 
 export default function getUserTweets() {
     return async (req: ExtendedRequest, res: NextApiResponse, next) => {
@@ -58,6 +55,7 @@ export default function getUserTweets() {
 
             req.threads = threads
             req.tweets = tweets
+            res.setHeader("X-Cache", "HIT")
             next()
 
           } else {
@@ -77,7 +75,7 @@ export default function getUserTweets() {
 
             req.threads = filteredResponse.threads
             req.tweets = filteredResponse.tweets
-
+            res.setHeader("X-Cache", "MISS")
             next()
 
           }

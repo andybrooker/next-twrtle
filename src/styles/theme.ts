@@ -17,6 +17,13 @@ declare module '@mui/material/styles' {
     medium?: React.CSSProperties,
     small?: React.CSSProperties
   }
+
+  interface PaletteColor {
+    lighter?: string;
+  }
+  interface SimplePaletteColorOptions {
+    lighter?: string;
+  }
 }
 
 declare module '@mui/material/Typography' {
@@ -69,7 +76,8 @@ let theme = createTheme({
   palette: {
     primary: {
       main: '#1DA1F2',
-      contrastText: '#FFF'
+      contrastText: '#FFF',
+      lighter: 'rgba(74, 179, 244, 0.5)'
     },
     secondary: {
       main: '#19857b',
@@ -103,7 +111,7 @@ theme = createTheme(theme, {
     MuiTab: {
       styleOverrides: {
         root: {
-          textTransform: 'none'
+          textTransform: 'none',
         }
       }
     },
