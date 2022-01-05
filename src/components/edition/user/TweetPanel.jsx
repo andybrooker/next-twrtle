@@ -19,8 +19,11 @@ export default function TweetPanel({ isLoading, tweets }) {
             <TabPanel value='tweetsPanel' index={0}>
                 {isLoading ? 'Loading...' :
                     <Masonry
+                    sx={{m: 0}}
                     columns={{ sm: 1, md: 2}}
                     spacing={2}
+                    variant="quilted"
+                    cols={2}
                     defaultHeight={500}
                     defaultColumns={2}
                     defaultSpacing={2}>
