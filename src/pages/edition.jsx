@@ -48,7 +48,7 @@ const TopTweetPanel = () => {
                         isLoading ?
                             ([0, 1, 2].map((value, index) => (
                                 <Tab 
-                                sx={{m:0, p: 0}} disableRipple value={index} icon={<Skeleton animation="wave" width={30} height={30} variant="circular" />} />
+                                sx={{m:0, p: 0}} disableRipple key={index} value={index} icon={<Skeleton animation="wave" width={30} height={30} variant="circular" />} />
                             ))) :
                             data.map(({ username }, index) => (
                                 <Tab disableRipple
@@ -77,6 +77,7 @@ const TopTweetPanel = () => {
                                         }
 
                                     }}
+                                    key={index}
                                     value={index}
                                     icon={<AuthorProfileImage
                                         username={username} />} />
