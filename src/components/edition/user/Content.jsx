@@ -37,7 +37,7 @@ export default function Content() {
             setDisabled({'threads': false, 'tweets': false})
         }
 
-    }, [data])
+    }, [data, isLoading])
 
     return (
         <Box sx={{ px: 8 }}>

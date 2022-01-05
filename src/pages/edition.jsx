@@ -93,7 +93,7 @@ const TopTweetPanel = () => {
                 }} elevation={0}>
                     {isLoading ? <p>Test</p> : 
                     data.map(({ username }, index) => (
-                        <TabPanel sx={{height: 'inherit', width: '100%'}} value={index}><TopTweet author={username}/></TabPanel>
+                        <TabPanel key={index} sx={{height: 'inherit', width: '100%'}} value={index}><TopTweet author={username}/></TabPanel>
                     ))}
                 </Card>
             </Box>

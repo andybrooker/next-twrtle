@@ -1,5 +1,6 @@
 import React from 'react'
 import { ImageList, ImageListItem, CardMedia } from '@mui/material'
+import Image from 'next/image'
 
 export default function TweetMedia({ media }) {
 
@@ -10,7 +11,7 @@ export default function TweetMedia({ media }) {
         else urlType = media[0]?.url
 
         return (
-            <CardMedia height="200" sx={{ borderBottom: 1, borderColor: 'divider' }} component="img" src={urlType} />
+            <CardMedia height="200" sx={{ borderBottom: 1, borderColor: 'divider' }} component={Image} src={urlType} />
         )
     }
 
@@ -26,7 +27,8 @@ export default function TweetMedia({ media }) {
 
                         return (
                             <ImageListItem key={element.media_key}>
-                                <img
+                                <Image
+                                    alt='Twitter Photo'
                                     src={`${urlType}`}
                                     srcSet={`${urlType}`}
                                     loading="lazy"

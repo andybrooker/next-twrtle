@@ -11,7 +11,7 @@ export default function Login() {
         if (session) {
           router.replace('/edition')
         }
-    }, [session])
+    }, [session, router])
 
     return (
         <div>
