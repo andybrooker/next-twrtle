@@ -5,6 +5,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab'
 import useAuthors from '../hooks/useAuthors'
 import useTwitterUser from '../hooks/useTwitterUser'
 import TopTweet from '../components/edition/TopTweet'
+import useTweets, { getUserTweets } from '../hooks/useTweets'
+import { useQueries } from 'react-query'
 
 
 export default function Edition() {
@@ -38,23 +40,24 @@ const TopTweetPanel = () => {
     return (
 
         <TabContext value={value}>
-            <Box sx={{  m:4, display: 'flex', alignItems: 'center' }}>
-                <Tabs TabIndicatorProps={{sx: {
-                    display: 'none'
-                }
-                    
+            <Box sx={{ m: 4, display: 'flex', alignItems: 'center' }}>
+                <Tabs TabIndicatorProps={{
+                    sx: {
+                        display: 'none'
+                    }
+
                 }} orientation='vertical' initialSelectedIndex={value} value={value} onChange={handleChange}>
                     {
                         isLoading ?
                             ([0, 1, 2].map((value, index) => (
-                                <Tab 
-                                sx={{m:0, p: 0}} disableRipple key={index} value={index} icon={<Skeleton animation="wave" width={30} height={30} variant="circular" />} />
+                                <Tab
+                                    sx={{ m: 0, p: 0 }} disableRipple key={index} value={index} icon={<Skeleton animation="wave" width={30} height={30} variant="circular" />} />
                             ))) :
                             data.map(({ username }, index) => (
                                 <Tab disableRipple
                                     sx={{
-                                        m:0,
-                                        p:0,
+                                        m: 0,
+                                        p: 0,
                                         "& .MuiAvatar-root": {
                                             border: '2px solid',
                                             borderColor: 'background.paper',
@@ -66,13 +69,13 @@ const TopTweetPanel = () => {
                                                 border: '2px solid',
                                                 borderColor: 'primary.main',
                                                 transition: '0.5s ease-out'
-                                                
+
                                             }
                                         },
                                         "&.Mui-focusVisible": {
                                             "& .MuiAvatar-root": {
                                                 borderColor: 'primary.lighter'
-                                                
+
                                             }
                                         }
 
@@ -91,9 +94,8 @@ const TopTweetPanel = () => {
                     mr: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8EC5FC',
                     backgroundImage: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)'
                 }} elevation={0}>
-                    {isLoading ? <p>Test</p> : 
-                    data.map(({ username }, index) => (
-                        <TabPanel key={index} sx={{height: 'inherit', width: '100%'}} value={index}><TopTweet author={username}/></TabPanel>
+                    {!isLoading && data.map(({ username }, index) => (
+                        <TabPanel key={index} sx={{ height: 'inherit', width: '100%' }} value={index}><TopTweet author={username} /></TabPanel>
                     ))}
                 </Card>
             </Box>
@@ -105,6 +107,7 @@ const TopTweetPanel = () => {
 const AuthorProfileImage = ({ username }) => {
 
     const { data, isLoading } = useTwitterUser(username)
+    const tweetQuery = useTweets(username)
 
     if (isLoading) {
         return <Skeleton animation="wave" width={30} height={30} variant="circular" />

@@ -3,8 +3,6 @@ import nextConnect from 'next-connect'
 import checkSession from '../../utils/checkSession'
 import { prisma } from '../../lib/clients/prisma'
 
-const authors = ['andy_brooker', 'jack', 'shreyas']
-
 const handler = nextConnect()
 
 handler.use(checkSession())

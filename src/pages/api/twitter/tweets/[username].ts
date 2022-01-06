@@ -41,7 +41,7 @@ function getThreads(req: ExtendedRequest) {
     const ids = threadArray.join()
     const response = await req.twitter.v2.tweets(ids, {
       'expansions': 'attachments.media_keys,author_id,referenced_tweets.id,referenced_tweets.id.author_id',
-      'media.fields': 'preview_image_url,url,type',
+      'media.fields': 'preview_image_url,url,type,width,height',
       'tweet.fields': 'created_at,public_metrics,entities,author_id,conversation_id,referenced_tweets,attachments',
       'user.fields': 'profile_image_url'
     })
@@ -63,7 +63,7 @@ async function getTweets(req: ExtendedRequest) {
   if (tweet_ids) {
     let { data, includes } = await req.twitter.v2.tweets(tweet_ids, {
       'expansions': ['attachments.media_keys', 'author_id','referenced_tweets.id', 'referenced_tweets.id.author_id'],
-      'media.fields': ['preview_image_url', 'url', 'type'],
+      'media.fields': ['preview_image_url', 'url', 'type', 'width', 'height'],
       'tweet.fields': 'created_at,public_metrics,entities,author_id,conversation_id,referenced_tweets,attachments',
       'user.fields': 'profile_image_url'
     })

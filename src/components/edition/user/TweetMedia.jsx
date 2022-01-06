@@ -11,7 +11,7 @@ export default function TweetMedia({ media }) {
         else urlType = media[0]?.url
 
         return (
-            <CardMedia height="200" sx={{ borderBottom: 1, borderColor: 'divider' }} component="img" src={urlType} />
+            <CardMedia height="200" sx={{ borderBottom: 1, borderColor: 'divider'}} component="img" src={urlType} />
         )
     }
 
@@ -38,6 +38,8 @@ export default function TweetMedia({ media }) {
                             <ImageListItem sx={{position: 'relative'}} rows={rows} key={element.media_key}>
                                 <Image
                                     layout="fill"
+                                    height={element.height}
+                                    width={element.width}
                                     alt='Twitter Photo'
                                     src={`${urlType}`}
                                     srcSet={`${urlType}`}
