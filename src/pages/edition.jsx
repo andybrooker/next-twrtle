@@ -1,12 +1,11 @@
 import React from 'react'
-import { Box, Typography, Card, Tabs, Tab, Avatar, Skeleton } from '@mui/material'
+import { Box, Card, Tabs, Tab, Avatar, Skeleton } from '@mui/material'
 import Greeting from '../components/edition/Greeting'
-import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { TabContext, TabPanel } from '@mui/lab'
 import useAuthors from '../hooks/useAuthors'
 import useTwitterUser from '../hooks/useTwitterUser'
 import TopTweet from '../components/edition/TopTweet'
-import useTweets, { getUserTweets } from '../hooks/useTweets'
-import { useQueries } from 'react-query'
+import useTweets from '../hooks/useTweets'
 
 
 export default function Edition() {
@@ -121,5 +120,3 @@ const AuthorProfileImage = ({ username }) => {
     }
 
 }
-
-
