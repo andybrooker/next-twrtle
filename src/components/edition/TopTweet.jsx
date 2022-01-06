@@ -13,7 +13,13 @@ export default function TopTweet({author}) {
 
     if (isLoading) {
         return (
-            <p>Loading...</p>
+            <Card elevation={4} sx={{
+                height: '100%', width: '100%',
+                boxSizing: 'border-box',
+                background: 'rgba(255, 255, 255, 0.5)',
+                backdropFilter: 'blur(10px)' }}>
+                {/* <TweetContent data={data?.tweets?.data[0]} includes={data?.tweets?.includes} /> */}
+            </Card>
         )
     }
 

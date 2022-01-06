@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 const fifteenMinsinMS = 15 * 60 * 1000;
 
-const getUserTweets = async (username) => {
+export const getUserTweets = async (username) => {
 
     const response = await fetch(`/api/twitter/tweets/${username}`)
 

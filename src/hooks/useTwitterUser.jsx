@@ -16,14 +16,9 @@ const getTwitterUser = async (username) => {
 }
 
 export default function useTwitterUser(username) {
-
-    const {data: authors} = useAuthors();
-
-    const enabled = true
     
     return useQuery(["author", username], () => getTwitterUser(username),
     {
-        enabled: enabled,
         useErrorBoundary: true,
         staleTime: fifteenMinsinMS
     });
