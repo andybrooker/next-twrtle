@@ -13,14 +13,14 @@ export default function Edition() {
     return (
         <Box sx={{ p: '60px 20px 0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
             <Greeting />
-            <TopTweetPanel />
+            <TopTweets />
         </Box>
     )
 }
 
 Edition.auth = true
 
-const TopTweetPanel = () => {
+const TopTweets = () => {
 
     const { data, isLoading, isError } = useAuthors()
 
@@ -49,8 +49,7 @@ const TopTweetPanel = () => {
                     {
                         isLoading ?
                             ([0, 1, 2].map((value, index) => (
-                                <Tab
-                                    sx={{ m: 0, p: 0 }} disableRipple key={index} value={index} icon={<Skeleton animation="wave" width={30} height={30} variant="circular" />} />
+                                <Tab sx={{ m: 0, p: 0 }} disableRipple key={index} value={index} icon={<Skeleton animation="wave" width={30} height={30} variant="circular" />} />
                             ))) :
                             data.map(({ username }, index) => (
                                 <Tab disableRipple
@@ -94,7 +93,7 @@ const TopTweetPanel = () => {
                     backgroundImage: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)'
                 }} elevation={0}>
                     {!isLoading && data.map(({ username }, index) => (
-                        <TabPanel key={index} sx={{ height: 'inherit', width: '100%' }} value={index}><TopTweet author={username} /></TabPanel>
+                        <TopTweetPanel index={index} key={index} username={username}/>
                     ))}
                 </Card>
             </Box>
@@ -103,10 +102,19 @@ const TopTweetPanel = () => {
 
 }
 
+const TopTweetPanel = ({ username, index }) => {
+
+    const authorQuery = useTwitterUser(username)
+    const tweetQuery = useTweets(username)
+
+    return (
+        <TabPanel key={index} sx={{ height: 'inherit', width: '100%' }} value={index}><TopTweet authorQuery={authorQuery} tweetQuery={tweetQuery}/></TabPanel>
+    )
+}
+
 const AuthorProfileImage = ({ username }) => {
 
     const { data, isLoading } = useTwitterUser(username)
-    const tweetQuery = useTweets(username)
 
     if (isLoading) {
         return <Skeleton animation="wave" width={30} height={30} variant="circular" />
