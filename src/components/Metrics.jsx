@@ -1,10 +1,11 @@
-export const Metrics = ({metrics}) => {
+export function Metrics({metrics}) {
 
     const formatter = Intl.NumberFormat('en', { notation: 'compact'})
 
-    return (
-        Object.entries(metrics).map(([key, value]) => <Metric key={`${key}-${value}`} icon={key} metric = {formatter.format(value)}/>)
-    )
+    return <>{
+            Object.entries(metrics).map(([key, value]) => <Metric key={`${key}-${value}`} icon={key} metric = {formatter.format(value)}/>)
+        }</>   
+    
 }
 
 const Metric = ({icon, metric}) => {
