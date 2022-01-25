@@ -1,13 +1,15 @@
 import React from 'react'
 import TweetText from './TweetText'
 import { TweetV2, ApiV2Includes, MediaObjectV2 } from 'twitter-api-v2'
-import { Card, CardContent, CardMedia } from '@mui/material'
+import { Card, Box, CardMedia } from '@mui/material'
 import Date from './Date'
 import TweetMedia from './edition/user/TweetMedia'
+import { Metrics } from './Metrics'
+import SkeletonTweet from './skeletons/SkeletonTweet'
 
-export default function Tweet({ data, includes }: { data: TweetV2, includes: ApiV2Includes }) {
+export default function Tweet({ data, includes, isLoading }: { data: TweetV2, includes: ApiV2Includes, isLoading: boolean }) {
     return (
-        <Card sx={{ my: 1, maxWidth: '500px' }} variant="outlined">
+        <Card sx={{ my: 1, p: 2, maxWidth: '500px' }} variant="outlined">
             <TweetContent data={data} includes={includes} />
         </Card>
     )
@@ -23,9 +25,9 @@ export const TweetContent = ({ data, includes }: { data: TweetV2, includes: ApiV
 
         return (
             <>
-                <CardContent><Date createdAt={data.created_at} thread={false}/></CardContent>
-                <CardContent><TweetText tweet={data} /></CardContent>
-            </>   
+                <Box><TweetText tweet={data} /></Box>
+                <Box><Date createdAt={data.created_at} thread={false} /></Box>
+            </>
         )
 
     }
@@ -54,11 +56,16 @@ export const TweetContent = ({ data, includes }: { data: TweetV2, includes: ApiV
         }
 
         return (
-            <>
-                {isMedia && <TweetMedia media={media_array}/>}
-                <CardContent sx ={{pb: 0}}><Date createdAt={data.created_at} thread={false}/></CardContent>
-                <CardContent sx ={{py: 1}}><TweetText tweet={data} /></CardContent>
-            </>
+            <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 1 }}>
+                <Box sx={{ py: 1 }}><TweetText tweet={data} /></Box>
+                {isMedia && <TweetMedia media={media_array} />}
+                <Box>
+                    <Date createdAt={data.created_at} thread={false} />
+                    <Box sx={{ display: 'flex', fontWeight: 400, fontSize: '12px', columnGap: '6px', alignItems: 'center', color: 'text.secondary', height: '22px' }}>
+                        <Metrics metrics={data?.public_metrics} />
+                    </Box>
+                </Box>
+            </Box>
 
         )
 
@@ -67,11 +74,16 @@ export const TweetContent = ({ data, includes }: { data: TweetV2, includes: ApiV
     else {
 
         return (
-            <>
-            <CardContent sx ={{pb: 0}}><Date createdAt={data.created_at} thread={false}/></CardContent>
-            <CardContent><TweetText tweet={data} /></CardContent>
-            </>
-            
+            <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 1 }}>
+                <Box><TweetText tweet={data} /></Box>
+                <Box>
+                    <Date createdAt={data.created_at} thread={false} />
+                    <Box sx={{ display: 'flex', fontWeight: 400, fontSize: '12px', columnGap: '6px', alignItems: 'center', color: 'text.secondary', height: '22px' }}>
+                        <Metrics metrics={data?.public_metrics} />
+                    </Box>
+                </Box>
+            </Box>
+
         )
 
     }

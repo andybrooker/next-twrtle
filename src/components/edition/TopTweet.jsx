@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Tabs, Tab, Card, Avatar, Typography, useTheme, Link, Skeleton} from '@mui/material'
+import { Box, Tabs, Tab, Card, Avatar, Typography, useTheme, Link, Skeleton, Icon} from '@mui/material'
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { TabPanel, TabContext } from '@mui/lab'
 import { useRouter } from 'next/router'
 import useTweets from '../../hooks/useTweets'
 import { TweetContent } from '../Tweet'
+import SkeletonTweet from '../skeletons/SkeletonTweet';
 
 
 export default function TopTweet({authorQuery, tweetQuery}) {
@@ -13,23 +15,29 @@ export default function TopTweet({authorQuery, tweetQuery}) {
     if (isLoading) {
         return (
             <Card elevation={4} sx={{
-                height: '100%', width: '100%',
+                display: 'flex', flexDirection: 'column', rowGap: 2, p: 2, height: '100%', width: '100%',
                 boxSizing: 'border-box',
                 background: 'rgba(255, 255, 255, 0.5)',
                 backdropFilter: 'blur(10px)' }}>
+                <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 <AuthorProfile authorQuery={authorQuery}/>
-                {/* <TweetContent data={data?.tweets?.data[0]} includes={data?.tweets?.includes} /> */}
+                <TwitterIcon color='primary' fontSize='large'/>
+            </Box>
+                <SkeletonTweet/>
             </Card>
         )
     }
 
     return (
         <Card elevation={4} sx={{
-            height: '100%', width: '100%',
+            display: 'flex', flexDirection: 'column', rowGap: 2, p: 2, height: '100%', width: '100%',
             boxSizing: 'border-box',
             background: 'rgba(255, 255, 255, 0.5)',
             backdropFilter: 'blur(10px)' }}>
-            <AuthorProfile authorQuery={authorQuery}/>
+            <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
+                <AuthorProfile authorQuery={authorQuery}/>
+                <TwitterIcon color='primary' fontSize='large'/>
+            </Box>
             <TweetContent data={data?.tweets?.data[0]} includes={data?.tweets?.includes} />
         </Card>
     )
@@ -47,7 +55,7 @@ export function AuthorProfile({authorQuery}) {
 
     return (
         <>
-        <Box sx={{p: 2, display: 'flex', alignItems: 'center', gap: 2}}>
+        <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
         <AuthorProfileImage author={data} isLoading={isLoading}/>
         <Box>
             <AuthorName author={data} isLoading={isLoading}/>
@@ -76,7 +84,7 @@ const AuthorProfileImage = ({ author, isLoading }) => {
 const AuthorName = ({ author, isLoading }) => {
 
         return (
-            <Typography sx={{fontWeight: 400}} variant="medium" component="p">
+            <Typography sx={{fontWeight: 400, m:0,p:0, lineHeight: 1}} variant="medium" component="p">
                 {isLoading ? 
                 <Skeleton animation="wave" />
                 : 
@@ -96,7 +104,8 @@ const AuthorUsername = ({ author, isLoading }) => {
                 "&:hover": {
                     color: theme.palette.primary.main
                 },
-                fontWeight: 300}} 
+                fontWeight: 300
+                }} 
             variant="small"
             component="a">
                 {isLoading ? 

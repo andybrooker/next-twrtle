@@ -88,7 +88,7 @@ const TopTweets = () => {
                 </Tabs>
 
                 <Card sx={{
-                    width: '50vw', height: '300px',
+                    width: '50vw', minHeight: '300px',
                     mr: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8EC5FC',
                     backgroundImage: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)'
                 }} elevation={0}>
