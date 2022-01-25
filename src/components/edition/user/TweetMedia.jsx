@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageList, ImageListItem, CardMedia } from '@mui/material'
+import { ImageList, ImageListItem, CardMedia, Box } from '@mui/material'
 import Image from 'next/image'
 
 export default function TweetMedia({ media }) {
@@ -11,17 +11,17 @@ export default function TweetMedia({ media }) {
         else urlType = media[0]?.url
 
         return (
-            <CardMedia height="200" sx={{ borderBottom: 1, borderColor: 'divider'}} component="img" src={urlType} />
+            <CardMedia height="240" sx={{ borderRadius: 2, border: '1px solid', borderColor: 'divider'}} component="img" src={urlType} />
         )
     }
 
     else {
         return (
-            <CardMedia sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box>
                 <ImageList 
                 variant="quilted"
                 cols={2}
-                sx={{ m: 0, height: 300 }}>
+                sx={{ m: 0, height: 300, borderRadius: 2}}>
                     {media.map((element, index) => {
 
                         let urlType
@@ -50,7 +50,7 @@ export default function TweetMedia({ media }) {
                         )
                     })}
                 </ImageList>
-            </CardMedia>
+            </Box>
         )
     }
 }

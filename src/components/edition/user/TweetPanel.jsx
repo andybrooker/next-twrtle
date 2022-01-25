@@ -1,7 +1,9 @@
+
 import React from 'react'
-import { TabPanel } from '@mui/lab'
+import { Grid } from '@mui/material';
+import { TabPanel, Masonry } from '@mui/lab'
 import Tweet from '../../Tweet'
-import { Masonry } from '@mui/lab';
+import SkeletonTweetCard from '../../skeletons/SkeletonTweetCard';
 
 export default function TweetPanel({ isLoading, tweets }) {
 
@@ -17,7 +19,17 @@ export default function TweetPanel({ isLoading, tweets }) {
     else {
         return (
             <TabPanel value='tweetsPanel' index={0}>
-                {isLoading ? 'Loading...' :
+                {isLoading ? 
+                
+                <Grid sx={{ m: 0, width: '100%' }}
+                columns={{ sm: 6, md: 12 }} container spacing={2}>
+                    {Array.from(Array(6)).map((_, index) => (
+                <Grid item sm={12} md={6} key={index}>
+                    <SkeletonTweetCard />
+                </Grid>
+                ))}
+            </Grid>
+                    :
                     <Masonry
                     sx={{m: 0}}
                     columns={{ sm: 1, md: 2}}
