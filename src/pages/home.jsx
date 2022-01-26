@@ -6,9 +6,10 @@ import useAuthors from '../hooks/useAuthors'
 import useTwitterUser from '../hooks/useTwitterUser'
 import TopTweet from '../components/edition/TopTweet'
 import useTweets from '../hooks/useTweets'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 
-export default function Edition() {
+export default function Home() {
 
     return (
         <Box sx={{ p: '60px 20px 0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -18,13 +19,15 @@ export default function Edition() {
     )
 }
 
-Edition.auth = true
+Home.auth = true
 
 const TopTweets = () => {
 
     const { data, isLoading, isError } = useAuthors()
 
     const [value, setValue] = React.useState(0);
+
+    const { width } = useWindowDimensions()
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -39,13 +42,13 @@ const TopTweets = () => {
     return (
 
         <TabContext value={value}>
-            <Box sx={{ m: 4, display: 'flex', alignItems: 'center' }}>
-                <Tabs TabIndicatorProps={{
+            <Box sx={{ m: 4, display: 'flex', flexDirection: (width < 800 ? 'column' : 'row'), alignItems: 'center' }}>
+                <Tabs sx={{overflow: 'visible'}} TabIndicatorProps={{
                     sx: {
-                        display: 'none'
+                        display: 'none',
                     }
 
-                }} orientation='vertical' initialSelectedIndex={value} value={value} onChange={handleChange}>
+                }} orientation={width < 800 ? 'horizontal' : 'vertical'} initialSelectedIndex={value} value={value} onChange={handleChange}>
                     {
                         isLoading ?
                             ([0, 1, 2].map((value, index) => (
@@ -88,8 +91,9 @@ const TopTweets = () => {
                 </Tabs>
 
                 <Card sx={{
-                    width: '50vw', minHeight: '300px',
-                    mr: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8EC5FC',
+                    width: '100%', minHeight: '300px',
+                    mr: (width < 800 ? 0 : '90px'),
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8EC5FC',
                     backgroundImage: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)'
                 }} elevation={0}>
                     {!isLoading && data.map(({ username }, index) => (

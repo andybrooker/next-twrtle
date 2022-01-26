@@ -9,7 +9,7 @@ export default function Login() {
 
     useEffect(() => {
         if (session) {
-          router.replace('/edition')
+          router.replace('/home')
         }
     }, [session, router])
 

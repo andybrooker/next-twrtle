@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Tabs, Tab, Card, Avatar, Typography, useTheme, Link, Skeleton, Icon} from '@mui/material'
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { TabPanel, TabContext } from '@mui/lab'
-import { useRouter } from 'next/router'
-import useTweets from '../../hooks/useTweets'
 import { TweetContent } from '../Tweet'
 import SkeletonTweet from '../skeletons/SkeletonTweet';
 
