@@ -9,7 +9,7 @@ import SkeletonTweet from './skeletons/SkeletonTweet'
 
 export default function Tweet({ data, includes, isLoading }: { data: TweetV2, includes: ApiV2Includes, isLoading: boolean }) {
     return (
-        <Card sx={{ my: 1, p: 2, maxWidth: '500px' }} variant="outlined">
+        <Card sx={{ my: 1, p: 2}} variant="outlined">
             <TweetContent data={data} includes={includes} />
         </Card>
     )
