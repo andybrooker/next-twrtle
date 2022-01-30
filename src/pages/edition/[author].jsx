@@ -17,7 +17,7 @@ export default function Author() {
 
     return (
         <div>
-            <Box sx={{ p: 8, pb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box sx={{ p: 8, pb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between', rowGap: 2}}>
                 <AuthorProfile />
                 <Box sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ fontSize: '24px', fontWeight: 500, textAlign: 'right' }} variant="h3">The Sunday Timelines</Typography>

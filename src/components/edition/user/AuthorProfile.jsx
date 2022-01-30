@@ -45,7 +45,7 @@ const AuthorProfileImage = ({ author, isLoading }) => {
 
 }
 
-const AuthorName = ({ author, isLoading }) => {
+export const AuthorName = ({ author, isLoading }) => {
 
         return (
             <Typography variant="h3" component="h1">
@@ -58,7 +58,7 @@ const AuthorName = ({ author, isLoading }) => {
 
 }
 
-const AuthorUsername = ({ author, isLoading }) => {
+export const AuthorUsername = ({ author, isLoading }) => {
 
         const theme = useTheme()
 

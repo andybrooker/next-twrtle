@@ -1,16 +1,39 @@
-import React from 'react'
+import React, {useRef, useCallback} from 'react'
 import TweetText from './TweetText'
 import { TweetV2, ApiV2Includes, MediaObjectV2 } from 'twitter-api-v2'
 import { Card, Box, CardMedia } from '@mui/material'
-import Date from './Date'
+import { TweetInfo } from './TweetInfo'
 import TweetMedia from './edition/user/TweetMedia'
-import { Metrics } from './Metrics'
-import SkeletonTweet from './skeletons/SkeletonTweet'
+import { toPng } from 'html-to-image';
+
 
 export default function Tweet({ data, includes, isLoading }: { data: TweetV2, includes: ApiV2Includes, isLoading: boolean }) {
+
+    const ref = useRef<HTMLDivElement>(null)
+
+    const onDownloadImage = () => {
+        if (ref.current === null) {
+            return
+        }
+
+        console.log('why')
+
+        toPng(ref.current, { cacheBust: true, })
+            .then((dataUrl) => {
+                const link = document.createElement('a')
+                link.download = 'my-image-name.png'
+                link.href = dataUrl
+                link.click()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
-        <Card sx={{ my: 1, p: 2}} variant="outlined">
+        <Card ref={ref} sx={{ my: 1, p: 2 }} variant="outlined">
             <TweetContent data={data} includes={includes} />
+            <TweetInfo data={data} onDownloadImage={onDownloadImage}/>
         </Card>
     )
 }
@@ -26,7 +49,6 @@ export const TweetContent = ({ data, includes }: { data: TweetV2, includes: ApiV
         return (
             <>
                 <Box><TweetText tweet={data} /></Box>
-                <Box><Date createdAt={data.created_at} thread={false} /></Box>
             </>
         )
 
@@ -59,14 +81,7 @@ export const TweetContent = ({ data, includes }: { data: TweetV2, includes: ApiV
             <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 1 }}>
                 <Box sx={{ py: 1 }}><TweetText tweet={data} /></Box>
                 {isMedia && <TweetMedia media={media_array} />}
-                <Box>
-                    <Date createdAt={data.created_at} thread={false} />
-                    <Box sx={{ display: 'flex', fontWeight: 400, fontSize: '12px', columnGap: '6px', alignItems: 'center', color: 'text.secondary', height: '22px' }}>
-                        <Metrics metrics={data?.public_metrics} />
-                    </Box>
-                </Box>
             </Box>
-
         )
 
     }
@@ -76,12 +91,6 @@ export const TweetContent = ({ data, includes }: { data: TweetV2, includes: ApiV
         return (
             <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 1 }}>
                 <Box><TweetText tweet={data} /></Box>
-                <Box>
-                    <Date createdAt={data.created_at} thread={false} />
-                    <Box sx={{ display: 'flex', fontWeight: 400, fontSize: '12px', columnGap: '6px', alignItems: 'center', color: 'text.secondary', height: '22px' }}>
-                        <Metrics metrics={data?.public_metrics} />
-                    </Box>
-                </Box>
             </Box>
 
         )

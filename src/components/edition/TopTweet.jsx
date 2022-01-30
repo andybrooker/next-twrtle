@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Tabs, Tab, Card, Avatar, Typography, useTheme, Link, Skeleton, Icon} from '@mui/material'
+import { Box, Paper, Card, Avatar, Typography, useTheme, Link, Skeleton, Icon} from '@mui/material'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { TweetContent } from '../Tweet'
 import SkeletonTweet from '../skeletons/SkeletonTweet';
+import { TweetInfo }from '../TweetInfo';
+import { isPostfixUnaryExpression } from 'typescript';
+
 
 
 export default function TopTweet({authorQuery, tweetQuery}) {
@@ -11,32 +14,27 @@ export default function TopTweet({authorQuery, tweetQuery}) {
 
     if (isLoading) {
         return (
-            <Card elevation={4} sx={{
-                display: 'flex', flexDirection: 'column', rowGap: 2, p: 2, height: '100%', width: '100%',
-                boxSizing: 'border-box',
-                background: 'rgba(255, 255, 255, 0.5)',
-                backdropFilter: 'blur(10px)' }}>
+            <Paper elevation={4} sx={{
+                display: 'flex', flexDirection: 'column', borderRadius: 2, p: 3, rowGap: 2}}>
                 <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 <AuthorProfile authorQuery={authorQuery}/>
                 <TwitterIcon color='primary' fontSize='large'/>
             </Box>
                 <SkeletonTweet/>
-            </Card>
+            </Paper>
         )
     }
 
     return (
-        <Card elevation={4} sx={{
-            display: 'flex', flexDirection: 'column', rowGap: 2, p: 2, height: '100%', width: '100%',
-            boxSizing: 'border-box',
-            background: 'rgba(255, 255, 255, 0.5)',
-            backdropFilter: 'blur(10px)' }}>
+        <Paper elevation={4} sx={{
+            display: 'flex', flexDirection: 'column', borderRadius: 2, p: 3, rowGap: 2}}>
             <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 <AuthorProfile authorQuery={authorQuery}/>
                 <TwitterIcon color='primary' fontSize='large'/>
             </Box>
             <TweetContent data={data?.tweets?.data[0]} includes={data?.tweets?.includes} />
-        </Card>
+            <TweetInfo data={data?.tweets?.data[0]}/>
+        </Paper>
     )
 }
 
