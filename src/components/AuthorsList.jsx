@@ -15,17 +15,17 @@ export default function AuthorsList() {
     }
 
     return (
-        <List sx= {{px: 2}}>
+        <List sx={{ px: 2 }}>
             <ListSubheader>My Authors</ListSubheader>
             {
                 isLoading ?
-                ([0, 1, 2].map(({value}) => (
-                    <ListItem key={value}><Skeleton variant="text" width='100px'/></ListItem>
-                ))) :
-                    data.map(({id, username}) => (
-                        <SidebarListItem key={id} href={`/edition/${username}`} primary={username}/>
+                    ([0, 1, 2].map(({ value }) => (
+                        <ListItem key={value}><Skeleton variant="text" width='100px' /></ListItem>
+                    ))) :
+                    data.map(({ id, username }) => (
+                        <SidebarListItem key={id} href={`/edition/${username}`} primary={username} />
                     )
-                )
+                    )
             }
         </List>
     )

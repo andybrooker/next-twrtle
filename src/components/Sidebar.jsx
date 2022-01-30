@@ -1,8 +1,10 @@
 import React from 'react'
-import Drawer from '@mui/material/Drawer'
+import {List, Drawer, ListSubheader} from '@mui/material'
 import UserProfile from './UserProfile'
 import AuthorsList from './AuthorsList'
 import Logo from './Logo'
+import SidebarListItemIcon from './SidebarListItemIcon'
+import PersonSearch from '@mui/icons-material/PersonSearch'
 
 export default function Sidebar() {
 
@@ -25,6 +27,9 @@ export default function Sidebar() {
                 anchor="left"
             >
                 <Logo />
+                <List sx={{p: 2}}>
+                    <SidebarListItemIcon href='/edition/add-authors' primary='Add Authors' icon={<PersonSearch />} />
+                </List>
                 <AuthorsList />
                 <UserProfile/>
             </Drawer>

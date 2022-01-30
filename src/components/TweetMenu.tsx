@@ -10,7 +10,7 @@ import StyleIcon from '@mui/icons-material/Style';
 import { Link } from '@mui/material';
 import { TweetV2 } from 'twitter-api-v2';
 
-export default function PositionedMenu({data, onDownloadImage}: {data: TweetV2, onDownloadImage: () => void}) {
+export default function PositionedMenu({ data, onDownloadImage }: { data: TweetV2, onDownloadImage: () => void }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,15 +23,15 @@ export default function PositionedMenu({data, onDownloadImage}: {data: TweetV2, 
   return (
     <div>
       <IconButton
-          id="more-actions-button"
-          aria-controls={open ? 'demo-positioned-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-          size='small'
-        >
-          <MoreHorizIcon fontSize='small'/>
-        </IconButton>
+        id="more-actions-button"
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        size='small'
+      >
+        <MoreHorizIcon fontSize='small' />
+      </IconButton>
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -48,23 +48,17 @@ export default function PositionedMenu({data, onDownloadImage}: {data: TweetV2, 
         }}
       >
         <Link href={`https://twitter.com/${data?.author_id}/status/${data?.id}`} target="_blank"
-                rel="noreferrer" underline="none"><MenuItem
-      sx={{color: 'text.secondary'}} onClick={handleClose}>
+          rel="noreferrer" underline="none"><MenuItem
+            sx={{ color: 'text.secondary' }} onClick={handleClose}>
             <ListItemIcon>
-            <ToTwitter />
-          </ListItemIcon>
-          <ListItemText>View on Twitter</ListItemText></MenuItem></Link>
-        <MenuItem sx={{color: 'text.secondary'}} onClick={onDownloadImage}>
-        <ListItemIcon>
-            <InsertPhoto fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Save as Picture</ListItemText>
+              <ToTwitter />
+            </ListItemIcon>
+            <ListItemText>View on Twitter</ListItemText></MenuItem></Link>
+        <MenuItem sx={{ color: 'text.secondary' }} onClick={handleClose}><ListItemIcon>
+          <StyleIcon fontSize="small" />
+        </ListItemIcon>
+          <ListItemText>Add to Bookmarks</ListItemText>
         </MenuItem>
-        <MenuItem sx={{color: 'text.secondary'}} onClick={handleClose}><ListItemIcon>
-            <StyleIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Add to Moodboard</ListItemText>
-          </MenuItem>
       </Menu>
     </div>
   );
