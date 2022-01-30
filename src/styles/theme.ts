@@ -71,7 +71,7 @@ let theme = createTheme({
     small: {
       fontSize: '14px',
       fontWeight: 300
-    }
+    },
   },
   palette: {
     primary: {
