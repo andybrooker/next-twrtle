@@ -11,7 +11,7 @@ export default function Logo() {
         <IconButton 
         sx={{width: 64, height: 64, m: 2}}
         onClick={() => {
-            router.push('/edition')
+            router.push('/home')
         }}>
                     <Image src='/NavLogo.svg' alt='Twrtle Logo' width={48} height={48}/>
         </IconButton>

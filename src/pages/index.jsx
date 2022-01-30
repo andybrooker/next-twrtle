@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     if (session) {
-      router.replace('/edition')
+      router.replace('/home')
     }
   })
 
