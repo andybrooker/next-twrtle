@@ -10,7 +10,7 @@ import StyleIcon from '@mui/icons-material/Style';
 import { Link } from '@mui/material';
 import { TweetV2 } from 'twitter-api-v2';
 
-export default function PositionedMenu({ data, onDownloadImage }: { data: TweetV2, onDownloadImage: () => void }) {
+export default function PositionedMenu({ data }: { data: TweetV2 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

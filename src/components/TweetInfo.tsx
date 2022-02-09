@@ -6,23 +6,25 @@ import { Metrics } from './Metrics';
 import TweetMenu from './TweetMenu'
 
 
-export const TweetInfo =({ data, onDownloadImage } : { data: TweetV2, onDownloadImage: () => void})=> {
+export const TweetInfo = ({ data }: { data: TweetV2 }) => {
 
-    const handleClick = () => {
-        console.log('Test')
-    }
 
     return (
-        <Box sx={{mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <Box>
-                <Date createdAt={data?.created_at} thread={false} />
-                <Box sx={{ display: 'flex', fontWeight: 400, fontSize: '12px', columnGap: '6px', alignItems: 'center', color: 'text.secondary', height: '22px' }}>
-                    <Metrics metrics={data?.public_metrics} />
-                </Box>
-            </Box>
-            <TweetMenu onDownloadImage={onDownloadImage} data={data}/>
+        <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <TweetMetrics data={data} />
+            <TweetMenu data={data} />
         </Box>
     )
 
 }
 
+const TweetMetrics = ({data}) => {
+    return (
+        <Box>
+            <Date createdAt={data?.created_at} thread={false} />
+            <Box sx={{ display: 'flex', fontWeight: 400, fontSize: '12px', columnGap: '6px', alignItems: 'center', color: 'text.secondary', height: '22px' }}>
+                <Metrics metrics={data?.public_metrics} />
+            </Box>
+        </Box>
+    )
+}

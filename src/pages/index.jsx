@@ -8,6 +8,7 @@ import SignInButton from '../components/SignInButton'
 import { Grid, Typography, Container, styled } from '@mui/material';
 import { TextLoop } from "react-text-loop-next";
 import LoadingPage from '../components/LoadingPage'
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 export default function Home() {
@@ -41,16 +42,9 @@ export default function Home() {
         <HomepageCopy />
       </main>
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+        <Typography sx={{fontSize: '0.5rem', color: 'text.secondary'}}>Made by Andy.</Typography>
+        
+        <Typography sx={{fontSize: '0.5rem', color: 'text.secondary'}}>Illustration by Humanities.</Typography>
       </footer>
     </div>
   )
@@ -63,7 +57,7 @@ const Header = styled('header')({
 
 function HomepageNav() {
 
-  return <Container sx={{p: 2, display: 'flex'}}>
+  return <Container sx={{display: 'flex'}}>
     <Container sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
       <Image src='/NavLogo.svg' alt='Twrtle Logo' width={48} height={48}/>
       <Typography sx={{userSelect: 'none'}} variant="large" fontFamily='p22-mackinac-pro' fontWeight='600'>Twrtle</Typography>
@@ -77,16 +71,21 @@ function HomepageCopy() {
 
   const loop_items = ['authors', 'bloggers', 'creators', 'doers', 'influencers', 'thinkers']
 
-  return <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <Typography sx={{ my: 2, textAlign: 'center' }} variant="h1" component="h1">
+  const small_layout = useMediaQuery('(min-width:1000px)');
+
+  return <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', '@media screen and (min-width: 1000px)': {flexDirection: 'row-reverse'} }}>
+    <Image src='/Index.png' alt='Consuming Elephant' width={small_layout ? 300 : 125} height={small_layout ? 600 : 250}/>
+    <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', '@media screen and (min-width: 1000px)': {justifyContent: 'center', alignItems: 'flex-start'}}}>
+    <Typography sx={{ my: 2, textAlign: small_layout ? 'left' : 'center', '@media screen and (max-width: 1000px)' : {fontSize: '38px'}}} variant="h1" component="h1">
       Consume your favourite tweets mindfully.
     </Typography>
-    <Typography sx={{ my: 2, textAlign: 'center' }} variant="large" component="h2">
-      Improve your Twitter signal-to-noise ratio with a weekly round-up of your favourite <TextLoop>{loop_items.map((value, index) => <span key={index}>{value}</span>)}</TextLoop>.
+    <Typography sx={{ my: 2, textAlign: small_layout ? 'left' : 'center', '@media screen and (max-width: 1000px)' : {fontSize: '17px'}}} variant="large" component="h2">
+      Improve your Twitter signal-to-noise ratio with a weekly round-up of your favourite <TextLoop>{loop_items.map((value, index) => <span key={index}>{value}.</span>)}</TextLoop>
     </Typography>
     <SignInButton size='large' />
-    <Typography sx={{ my: 2 }} variant="small" component="span">Join Andy and 100&apos;s of others developing a slower, healthier relationship with social media.</Typography>
+    <Typography sx={{ textAlign: small_layout ? 'left' : 'center', maxWidth: '270px'}} variant="micro" component="span">Join Andy and 100&apos;s of others developing a slower, healthier relationship with social media.</Typography>
 
+    </Container>
   </Container>
 }
 

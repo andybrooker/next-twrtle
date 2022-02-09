@@ -15,7 +15,8 @@ declare module '@mui/material/styles' {
     p?: React.CSSProperties,
     large?: React.CSSProperties,
     medium?: React.CSSProperties,
-    small?: React.CSSProperties
+    small?: React.CSSProperties,
+    micro?: React.CSSProperties
   }
 
   interface PaletteColor {
@@ -72,6 +73,9 @@ let theme = createTheme({
       fontSize: '14px',
       fontWeight: 300
     },
+    micro: {
+      fontSize: '11px'
+    }
   },
   palette: {
     primary: {

@@ -23,7 +23,7 @@ export default function SignInButton({size}) {
     } else {
         return (
             <Button
-            sx={{px: 2, my: 2, textTransform: 'none', whiteSpace: 'nowrap'}}
+            sx={{px: 3, my: 2, textTransform: 'none', whiteSpace: 'nowrap'}}
             onClick={() => signIn("twitter")}
             variant ="contained"
             size={size}
