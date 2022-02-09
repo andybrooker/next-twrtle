@@ -1,3 +1,5 @@
+import { Typography } from "@mui/material"
+
 export function Metrics({metrics}) {
 
     const formatter = Intl.NumberFormat('en', { notation: 'compact'})
@@ -13,19 +15,19 @@ const Metric = ({icon, metric}) => {
     switch(icon) {
         case 'retweet_count':
             return (        
-                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><RetweetIcon /></div>{metric}</div>
+                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><RetweetIcon /></div><Typography fontWeight={400} variant="small">{metric}</Typography></div>
             )
         case 'reply_count':
             return (        
-                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><ReplyIcon /></div>{metric}</div>
+                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><ReplyIcon /></div><Typography fontWeight={400} variant="small">{metric}</Typography></div>
             )
         case 'like_count':
             return (
-                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><LikeIcon /></div>{metric}</div>
+                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><LikeIcon /></div><Typography fontWeight={400} variant="small">{metric}</Typography></div>
             )
         case 'quote_count':
             return (        
-                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><QuoteIcon /></div>{metric}</div>
+                <div style = {{display: 'flex', alignItems: 'center', columnGap: '2px'}}><div style = {{paddingTop: '4px'}}><QuoteIcon /></div><Typography fontWeight={400} variant="small">{metric}</Typography></div>
             )
         default:
             return (<div></div>)

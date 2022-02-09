@@ -25,6 +25,6 @@ export default function TweetText({ tweet } : { tweet: TweetV2}) {
     }
 
     return (
-        <Typography sx={{whiteSpace: 'pre-line'}} variant="medium">{parse(renderTweet(tweet), options)}</Typography>
+        <Typography sx={{whiteSpace: 'pre-line'}} variant= "medium">{parse(renderTweet(tweet), options)}</Typography>
     )
 }

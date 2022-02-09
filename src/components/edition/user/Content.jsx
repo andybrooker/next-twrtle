@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Tabs, Tab } from '@mui/material'
+import { Box, Tabs, Tab, useMediaQuery } from '@mui/material'
 import { TabPanel, TabContext } from '@mui/lab'
 import { useRouter } from 'next/router'
 import useTweets from '../../../hooks/useTweets'
@@ -7,6 +7,8 @@ import TweetPanel from './TweetPanel'
 import ThreadPanel from './ThreadPanel'
 
 export default function Content() {
+
+    const reduce_padding = useMediaQuery('(max-width: 600px)')
 
     const [value, setValue] = useState('tweetsPanel')
     const [disabled, setDisabled] = useState({
@@ -40,7 +42,7 @@ export default function Content() {
     }, [data, isLoading])
 
     return (
-        <Box sx={{ px: 8 }}>
+        <Box sx={{ px: reduce_padding ? 1 : 8 }}>
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs initialSelectedIndex={value} value={value} onChange={handleChange} aria-label="tweets or threads">
