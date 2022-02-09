@@ -12,7 +12,9 @@ export default function Layout({ children }) {
         return (
             <>
             <main>
+            <Box sx={{pb: '60px'}}>
                 {children}
+                </Box>
             </main>
             <BottomNav />
             </>

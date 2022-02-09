@@ -1,11 +1,15 @@
 
 import React from 'react'
-import { Grid } from '@mui/material';
-import { TabPanel, Masonry } from '@mui/lab'
+import { Grid, useMediaQuery } from '@mui/material';
+import { TabPanel } from '@mui/lab'
 import Tweet from '../../Tweet'
 import SkeletonTweetCard from '../../skeletons/SkeletonTweetCard';
+import Masonry from 'react-masonry-css';
+import styles from '../../../styles/masonry.module.css'
 
 export default function TweetPanel({ isLoading, tweets }) {
+
+    const extra_padding = useMediaQuery('(max-width: 600px)')
 
     if (!isLoading && Object.keys(tweets).length === 0) {
 
@@ -18,7 +22,7 @@ export default function TweetPanel({ isLoading, tweets }) {
 
     else {
         return (
-            <TabPanel value='tweetsPanel' index={0} sx={{px: 0, py: 3, width: '100%'}}>
+            <TabPanel value='tweetsPanel' index={0} sx={{px: 0, py: extra_padding ? 0 : 3, width: '100%'}}>
                 {isLoading ? 
                 
                 <Grid sx={{ m: 0}}
@@ -32,15 +36,9 @@ export default function TweetPanel({ isLoading, tweets }) {
                     :
                     
                     <Masonry
-                    sx={{m: 0, width: '100%'}}
-                    columns={{ sm: 1, md: 2}}
-                    spacing={2}
-                    variant="quilted"
-                    cols={2}
-                    defaultHeight={500}
-                    defaultColumns={2}
-                    defaultSpacing={2}
-                    >
+                    breakpointCols={{default: 2, 600: 1}}
+                    className={styles.mymasonrygrid}
+                    columnClassName={styles.mymasonrygrid_column}>
                         {tweets?.data?.map((tweet, index) => <Tweet key={index} data={tweet} includes={tweets?.includes} />)}
                     </Masonry>
                 }

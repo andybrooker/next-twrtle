@@ -3,19 +3,23 @@ import { red, grey } from '@mui/material/colors';
 import React from 'react';
 
 declare module '@mui/material/styles' {
+  
+  interface MUICSSProperties extends React.CSSProperties {
+     '@media (max-width:600px)': React.CSSProperties
+  }
   interface TypographyVariants {
     p: React.CSSProperties,
     large: React.CSSProperties,
-    medium: React.CSSProperties,
-    small: React.CSSProperties
+    medium: MUICSSProperties,
+    small: MUICSSProperties
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     p?: React.CSSProperties,
     large?: React.CSSProperties,
-    medium?: React.CSSProperties,
-    small?: React.CSSProperties,
+    medium?: MUICSSProperties,
+    small?: MUICSSProperties,
     micro?: React.CSSProperties
   }
 
@@ -67,11 +71,17 @@ let theme = createTheme({
     },
     medium: {
       fontSize: '16px',
-      fontWeight: 300
+      fontWeight: 300,
+      '@media (max-width:600px)': {
+        fontSize: '15px'
+      }
     },
     small: {
       fontSize: '14px',
-      fontWeight: 300
+      fontWeight: 300,
+      '@media (max-width:600px)': {
+        fontSize: '13px'
+      }
     },
     micro: {
       fontSize: '11px'
@@ -89,8 +99,19 @@ let theme = createTheme({
     error: {
       main: red.A400,
     },
-  }
+  },
 });
+
+const shadowColor = '0deg 0% 63%'
+
+theme.shadows[1] = `0.3px 0.5px 0.7px hsl(${shadowColor} / 0.34),
+0.4px 0.8px 1px -1.2px hsl(${shadowColor} / 0.34),
+1px 2px 2.5px -2.5px hsl(${shadowColor} / 0.34)`
+
+theme.shadows[2] = `0.3px 0.5px 0.7px hsl(${shadowColor} / 0.36),
+0.8px 1.6px 2px -0.8px hsl(${shadowColor} / 0.36),
+2.1px 4.1px 5.2px -1.7px hsl(${shadowColor} / 0.36),
+5px 10px 12.6px -2.5px hsl(${shadowColor} / 0.36)`
 
 theme = createTheme(theme, {
   components: {

@@ -2,13 +2,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useSession, getSession } from 'next-auth/react'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from 'next/router'
 import SignInButton from '../components/SignInButton'
 import { Grid, Typography, Container, styled } from '@mui/material';
 import { TextLoop } from "react-text-loop-next";
 import LoadingPage from '../components/LoadingPage'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 
 
 export default function Home() {
@@ -52,12 +53,22 @@ export default function Home() {
 
 const Header = styled('header')({
   position: 'sticky',
-  top: 0
+  top: 0,
+  zIndex: 999
 })
 
 function HomepageNav() {
 
-  return <Container sx={{display: 'flex'}}>
+  const [isOpaque, setIsOpaque] = useState(false)
+
+  useScrollPosition(({ prevPos, currPos }) => {
+    const checkScroll = currPos.y < -10
+    if ( checkScroll !== isOpaque ) {
+      setIsOpaque(checkScroll)
+    }
+  }, [isOpaque])
+
+  return <Container sx={{display: 'flex', boxShadow: isOpaque ? 1 : 0, backgroundColor: isOpaque ? 'white' : '', transition: '500ms ease'}}>
     <Container sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
       <Image src='/NavLogo.svg' alt='Twrtle Logo' width={48} height={48}/>
       <Typography sx={{userSelect: 'none'}} variant="large" fontFamily='p22-mackinac-pro' fontWeight='600'>Twrtle</Typography>

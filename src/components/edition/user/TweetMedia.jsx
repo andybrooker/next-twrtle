@@ -11,7 +11,7 @@ export default function TweetMedia({ media }) {
         else urlType = media[0]?.url
 
         return (
-            <CardMedia height="300" sx={{ borderRadius: 2, border: '1px solid', borderColor: 'divider'}} component="img" src={urlType} />
+            <CardMedia sx={{ borderRadius: 2, border: '1px solid', borderColor: 'divider'}} component="img" src={urlType} />
         )
     }
 

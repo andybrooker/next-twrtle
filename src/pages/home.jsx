@@ -14,23 +14,23 @@ import SkeletonProfile from '../components/skeletons/SkeletonProfile'
 
 export default function Home() {
 
+    const { width } = useWindowDimensions()
+
     return (
-        <Box sx={{ p: '60px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', rowGap: 2 }}>
+        <Box sx={{ pt: '60px', px: width > 600 ? '20px' : '0px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', rowGap: 2 }}>
             <Greeting />
-            <TopTweets />
+            <TopTweets width={width} />
         </Box>
     )
 }
 
 Home.auth = true
 
-const TopTweets = () => {
+const TopTweets = ({width}) => {
 
     const { data, isLoading, isError } = useAuthors()
 
     const [value, setValue] = React.useState(0);
-
-    const { width } = useWindowDimensions()
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -100,11 +100,11 @@ const TopTweets = () => {
                 </Box>
 
                 <Card sx={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'visible'
                 }} elevation={0}>
                     {isLoading ?
                         <Box sx={{ width: '100%', px: 3, py: 1}} >
-                            <Paper elevation={4} sx={{
+                            <Paper elevation={2} sx={{
                                 display: 'flex', flexDirection: 'column', borderRadius: 2, p: 2, rowGap: 2, width: '100%'
                             }}>
                                 <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>

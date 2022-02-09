@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { Typography } from '@mui/material'
+import { Typography, useMediaQuery } from '@mui/material'
 
 export default function Date({createdAt, thread}) {
 
@@ -14,7 +14,7 @@ export default function Date({createdAt, thread}) {
     }
 
     return (
-        <Typography sx={{fontWeight: 400, color: 'text.secondary'}} variant="small" component="time">{renderDate(createdAt)}</Typography>
+        <Typography sx={{fontWeight: 400, color: 'text.secondary'}} variant='small' component="time">{renderDate(createdAt)}</Typography>
     )
 }
 
