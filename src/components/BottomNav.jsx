@@ -6,7 +6,6 @@ import ProfileIcon from './icons/ProfileIcon'
 import NextLinkComposed from './NextLinkComposed'
 import { useRouter } from 'next/router';
 import useAuthors from '../hooks/useAuthors'
-import Person from '@mui/icons-material/Person'
 
 export default function BottomNav() {
 

@@ -9,31 +9,10 @@ import { toPng } from 'html-to-image';
 
 export default function Tweet({ data, includes, isLoading }: { data: TweetV2, includes: ApiV2Includes, isLoading: boolean }) {
 
-    const ref = useRef<HTMLDivElement>(null)
-
-    const onDownloadImage = () => {
-        if (ref.current === null) {
-            return
-        }
-
-        console.log('why')
-
-        toPng(ref.current, { cacheBust: true, })
-            .then((dataUrl) => {
-                const link = document.createElement('a')
-                link.download = 'my-image-name.png'
-                link.href = dataUrl
-                link.click()
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
     return (
-        <Card ref={ref} sx={{ my: 1, p: 2 }} variant="outlined">
+        <Card sx={{ my: 1, p: 2 }} variant="outlined">
             <TweetContent data={data} includes={includes} />
-            <TweetInfo data={data} onDownloadImage={onDownloadImage}/>
+            <TweetInfo data={data}/>
         </Card>
     )
 }
