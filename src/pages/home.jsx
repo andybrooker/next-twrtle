@@ -26,7 +26,7 @@ export default function Home() {
 
 Home.auth = true
 
-const TopTweets = ({width}) => {
+const TopTweets = ({ width }) => {
 
     const { data, isLoading, isError } = useAuthors()
 
@@ -46,11 +46,13 @@ const TopTweets = ({width}) => {
 
         <TabContext value={value}>
             <Box sx={{ width: '100%', px: (width < 800) ? 0 : 4 }}>
-                <Box sx={{px: 3}}>
-                    <Typography component="h2" variant = "large" color="text.secondary">Top Tweets of the Week</Typography>
-                    <Tabs sx={{ overflow: 'visible', minHeight: 0, "& .MuiTabs-flexContainer": {
-                        columnGap: 2
-                    }}} TabIndicatorProps={{
+                <Box sx={{ px: 3 }}>
+                    <Typography component="h2" variant="large" color="text.secondary">Top Tweets of the Week</Typography>
+                    <Tabs sx={{
+                        overflow: 'visible', minHeight: 0, "& .MuiTabs-flexContainer": {
+                            columnGap: 2
+                        }
+                    }} TabIndicatorProps={{
                         sx: {
                             display: 'none',
                         }
@@ -103,9 +105,9 @@ const TopTweets = ({width}) => {
                     display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'visible'
                 }} elevation={0}>
                     {isLoading ?
-                        <Box sx={{ width: '100%', px: 3, py: 1}} >
+                        <Box sx={{ width: '100%', px: 3, py: 1 }} >
                             <Paper elevation={2} sx={{
-                                display: 'flex', flexDirection: 'column', borderRadius: 2, p: 2, rowGap: 2, width: '100%'
+                                display: 'flex', flexDirection: 'column', borderRadius: 2, p: 3, rowGap: 2, border: '1px solid', borderColor: 'divider'
                             }}>
                                 <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
                                     <SkeletonProfile />

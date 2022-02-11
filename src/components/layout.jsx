@@ -12,7 +12,7 @@ export default function Layout({ children }) {
         return (
             <>
             <main>
-            <Box sx={{pb: '60px'}}>
+            <Box sx={{pb: 'calc(60px + env(safe-area-inset-bottom))'}}>
                 {children}
                 </Box>
             </main>

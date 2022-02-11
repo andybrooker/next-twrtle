@@ -18,6 +18,7 @@ export default function Sidebar() {
                     '& .MuiDrawer-paper': {
                         width: drawerWidth,
                         boxSizing: 'border-box',
+                        boxShadow: 1,
                         display: 'flex', 
                         flexDirection: 'column', 
                         justifyContent: 'space-between'

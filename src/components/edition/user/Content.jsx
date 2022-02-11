@@ -46,8 +46,8 @@ export default function Content() {
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs initialSelectedIndex={value} value={value} onChange={handleChange} aria-label="tweets or threads">
-                        <Tab disabled={disabled.tweets} value='tweetsPanel' disableRipple label="Tweets" />
-                        <Tab disabled={disabled.threads} value='threadsPanel' disableRipple label="Threads" />
+                        <Tab sx={{fontWeight: 400}} disabled={disabled.tweets} value='tweetsPanel' disableRipple label="Tweets" />
+                        <Tab sx={{fontWeight: 400}} disabled={disabled.threads} value='threadsPanel' disableRipple label="Threads" />
                     </Tabs>
                 </Box>
                 <TweetPanel isLoading={isLoading} tweets={data?.tweets} />
