@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { TweetContent } from '../../Tweet';
-import { Box, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Box, Dialog, DialogContent, DialogTitle, Fab, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/system';
-import ButtonUnstyled, {buttonUnstyledClasses} from '@mui/base/ButtonUnstyled'
+import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function Thread({ data, includes }) {
 
     const [open, setOpen] = useState(false)
+
+    const mobile = useMediaQuery('(max-width: 600px)')
 
     const handleOpen = () => {
         setOpen(true);
@@ -29,18 +32,23 @@ export default function Thread({ data, includes }) {
 
     return (
         <React.Fragment>
-            <CustomButton role='button' tabIndex={0} onClick={handleOpen} onKeyPress={handleKeypress}>
+            <CustomButton sx={{mb: 1}} role='button' tabIndex={0} onClick={handleOpen} onKeyPress={handleKeypress}>
                 <TweetContent data={data[0]} includes={includes} />
             </CustomButton>
             <Dialog
                 open={open}
                 onClose={handleClose}
                 fullWidth
+                fullScreen
                 maxWidth='xl'
-                scroll='paper'
+                scroll='body'
+                
             >
-                <DialogTitle sx={{m: 2, backgroundColor: 'none', mb: 0}} >Thread by {getAuthorName(data[0], includes)}</DialogTitle>
-                <DialogContent>{data.map((tweet, index) => <Box key={index} sx={{py: 2, px: 2}}><TweetContent data={tweet} includes={includes}/></Box>)}</DialogContent>
+                <Fab disableRipple onClick={handleClose} sx={{border: '1px solid', backgroundColor: "background.paper", borderColor: "divider", boxShadow: 2, position: 'fixed', top: 16, right: 16, zIndex: 999}} size="small">
+                    <CloseIcon />
+                </Fab>
+                <DialogTitle sx={{mx: mobile ? 2 : 14, mt: 2, backgroundColor: 'none', mb: 0}} >Thread by {getAuthorName(data[0], includes)}</DialogTitle>
+                <DialogContent sx={{mx: mobile ? 0 : 12}}>{data.map((tweet, index) => <Box key={index} sx={{py: 1, px: 2}}><TweetContent data={tweet} includes={includes}/></Box>)}</DialogContent>
             </Dialog>
         </React.Fragment>
     )

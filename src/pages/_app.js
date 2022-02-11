@@ -26,6 +26,7 @@ const queryClient = new QueryClient({
 export default function MyApp(props) {
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>)
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -40,9 +41,7 @@ export default function MyApp(props) {
             <CssBaseline />
             {Component.auth ? (
               <AuthGuard>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
+                {getLayout(<Component {...pageProps} />)}
               </AuthGuard>
             ) : (
               <Component {...pageProps} />

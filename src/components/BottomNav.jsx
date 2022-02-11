@@ -16,7 +16,7 @@ export default function BottomNav() {
 
     return <BottomNavigation
         showLabels
-        sx={{ position: 'fixed', bottom: 0, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}
+        sx={{ height: 'auto', position: 'fixed', bottom: 0, right: 0, left: 0, borderTop: '1px solid', borderColor: 'divider', pb: 'env(safe-area-inset-bottom)' }}
         elevation={2}
         value={router.pathname.split('/')[1]}
     >
