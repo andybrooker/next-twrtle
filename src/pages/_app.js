@@ -8,9 +8,9 @@ import theme from '../styles/theme';
 import createEmotionCache from '../styles/createStyleCache';
 import { SessionProvider } from 'next-auth/react';
 import { AuthGuard } from '../components/AuthGuard';
-import Layout from '../components/layout'
-import { QueryClientProvider, QueryClient } from 'react-query'
-
+import Layout from '../components/layout';
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -49,6 +49,7 @@ export default function MyApp(props) {
           </ThemeProvider>
         </SessionProvider>
       </CacheProvider>
+      <ReactQueryDevtools initialIsOpen={true}/>
     </QueryClientProvider>
   );
 }

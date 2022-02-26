@@ -15,7 +15,7 @@ export default function AuthorsList() {
     }
 
     return (
-        <List sx={{ px: 2 }}>
+        <List sx={{ px: 2}}>
             <ListSubheader>My Authors</ListSubheader>
             {
                 isLoading ?
