@@ -10,19 +10,21 @@ import NestedLayout from '../../components/nestedlayout'
 import Content from '../../components/edition/user/Content'
 
 import useDate from '../../hooks/useDate'
-
-export default function Author() {
+import { prisma } from '../../lib/clients/prisma'
+import { getSession } from 'next-auth/react'
+export default function Author({userFollows, showData}) {
 
     const mobile = useMediaQuery('(max-width: 800px)')
     const padding = useMediaQuery('(max-width: 600px)')
+    console.log(userFollows)
 
     return (
         <div>
             <Box sx={{ p: padding ? 2 : 8, pb: padding ? 2 : 4, pt: padding ? 4 : 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', rowGap: 2 }}>
-                <AuthorProfile />
+                <AuthorProfile userFollows={userFollows}/>
                 {mobile ? <></> : <SundayTimelines />}
             </Box>
-            <Content />
+            <Content showData={showData}/>
         </div>
 
     )
@@ -44,8 +46,6 @@ Author.auth = true
 
 Author.getLayout = function getLayout(page) {
 
-    console.log('Testing')
-
     return (
         <Layout>
             <NestedLayout>
@@ -53,4 +53,35 @@ Author.getLayout = function getLayout(page) {
             </NestedLayout>
         </Layout>
     )
+}
+
+export async function getServerSideProps(context) {
+    const  { params: { author } } = context
+    const { id } = await getSession(context)
+    const authorFollowed = await prisma.author.findMany(
+        {
+            where: {
+                users: {
+                    some: {
+                        userId: id,
+                    }
+                },
+                username: {
+                    equals: author
+                }
+            }
+        }
+    )
+
+    const onTwrtle = await prisma.author.findFirst({
+        where: {
+            username: author
+        }
+    })
+
+    const userFollows = authorFollowed.length == 0 ? false : true
+    const showData = onTwrtle ? true : false
+
+    return { props: { userFollows, showData }}
+
 }

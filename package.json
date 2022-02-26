@@ -20,6 +20,7 @@
     "@next-auth/prisma-adapter": "^1.0.1",
     "@prisma/client": "^3.7.0",
     "@types/ioredis": "^4.28.7",
+    "axios": "^0.26.0",
     "dompurify": "^2.3.4",
     "html-react-parser": "^1.4.4",
     "html-to-image": "^1.9.0",

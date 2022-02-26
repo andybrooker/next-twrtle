@@ -47,8 +47,8 @@ export default function Thread({ data, includes }) {
                 <Fab disableRipple onClick={handleClose} sx={{border: '1px solid', backgroundColor: "background.paper", borderColor: "divider", boxShadow: 2, position: 'fixed', top: 16, right: 16, zIndex: 999}} size="small">
                     <CloseIcon />
                 </Fab>
-                <DialogTitle sx={{mx: mobile ? 2 : 14, mt: 2, backgroundColor: 'none', mb: 0}} >Thread by {getAuthorName(data[0], includes)}</DialogTitle>
-                <DialogContent sx={{mx: mobile ? 0 : 12}}>{data.map((tweet, index) => <Box key={index} sx={{py: 1, px: 2}}><TweetContent data={tweet} includes={includes}/></Box>)}</DialogContent>
+                <DialogTitle sx={{mx: mobile ? 0 : 'auto', width: mobile ? '100%' : '760px', px: 5, mt: 2, backgroundColor: 'none', mb: 0}} >Thread by {getAuthorName(data[0], includes)}</DialogTitle>
+                <DialogContent sx={{mx: mobile ? 0 : 'auto', width: mobile ? '100%' : '760px'}}>{data.map((tweet, index) => <Box key={index} sx={{py: 1, px: 2}}><TweetContent data={tweet} includes={includes}/></Box>)}</DialogContent>
             </Dialog>
         </React.Fragment>
     )

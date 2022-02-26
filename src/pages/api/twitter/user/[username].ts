@@ -38,7 +38,7 @@ handler.get(async (req: ExtendedRequest, res: NextApiResponse) => {
 
         } else {
 
-            const { data } = await req.twitter.v2.userByUsername(username, { 'user.fields': 'profile_image_url' })
+            const { data } = await req.twitter.v2.userByUsername(username, { 'user.fields': ['profile_image_url', 'description', 'entities'] })
 
             redis.psetex(username, 600000, JSON.stringify(data))
 
