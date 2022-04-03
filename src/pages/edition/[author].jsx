@@ -16,7 +16,6 @@ export default function Author({userFollows, showData}) {
 
     const mobile = useMediaQuery('(max-width: 800px)')
     const padding = useMediaQuery('(max-width: 600px)')
-    console.log(userFollows)
 
     return (
         <div>
@@ -56,6 +55,10 @@ Author.getLayout = function getLayout(page) {
 }
 
 export async function getServerSideProps(context) {
+
+    var userFollows = null
+    var showData = null
+
     const  { params: { author } } = context
     const { id } = await getSession(context)
     const authorFollowed = await prisma.author.findMany(
@@ -79,8 +82,8 @@ export async function getServerSideProps(context) {
         }
     })
 
-    const userFollows = authorFollowed.length == 0 ? false : true
-    const showData = onTwrtle ? true : false
+    userFollows = authorFollowed.length == 0 ? false : true
+    showData = onTwrtle ? true : false
 
     return { props: { userFollows, showData }}
 

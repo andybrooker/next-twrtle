@@ -94,7 +94,7 @@ let theme = createTheme({
       lighter: 'rgba(74, 179, 244, 0.5)'
     },
     secondary: {
-      main: '#19857b',
+      main: '#000',
     },
     error: {
       main: red.A400,

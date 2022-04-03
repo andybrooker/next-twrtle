@@ -22,11 +22,11 @@ export default function TweetPanel({ isLoading, tweets }) {
 
     else {
         return (
-            <TabPanel value='tweetsPanel' index={0} sx={{px: 0, py: extra_padding ? 0 : 3, width: '100%'}}>
+            <TabPanel value='tweetsPanel' index={0} sx={{px: 0, py: 0, width: '100%'}}>
                 {isLoading ? 
                 
-                <Grid sx={{ m: 0}}
-                columns={{ xs: 12, sm: 12, md: 12 }} container columnSpacing={1}>
+                <Grid sx={{ m: 0, ml: -4}}
+                columns={{ xs: 12, sm: 12, md: 12 }} container columnSpacing={4}>
                     {Array.from(Array(6)).map((_, index) => (
                 <Grid item xs={12} sm={12} md={6} key={index}>
                     <SkeletonTweetCard />
@@ -36,7 +36,7 @@ export default function TweetPanel({ isLoading, tweets }) {
                     :
                     
                     <Masonry
-                    breakpointCols={{default: 2, 600: 1}}
+                    breakpointCols={{default: 2, 1000: 1}}
                     className={styles.mymasonrygrid}
                     columnClassName={styles.mymasonrygrid_column}>
                         {tweets?.data?.map((tweet, index) => <Tweet key={index} data={tweet} includes={tweets?.includes} />)}

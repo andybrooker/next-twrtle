@@ -17,7 +17,7 @@ export default function Home() {
     const { width } = useWindowDimensions()
 
     return (
-        <Box sx={{ pt: '60px', px: width > 600 ? '20px' : '0px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', rowGap: 2 }}>
+        <Box sx={{ pt: '60px', pb: '20px', px: width > 600 ? '20px' : '0px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', rowGap: 2, minHeight: '100vh' }}>
             <Greeting />
             <TopTweets width={width} />
         </Box>
