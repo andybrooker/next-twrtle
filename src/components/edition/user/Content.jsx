@@ -42,7 +42,7 @@ export default function Content() {
     }, [data, isLoading])
 
     return (
-        <Box sx={{ px: reduce_padding ? 1 : 8 }}>
+        <Box sx={{ px: reduce_padding ? 2 : 8 }}>
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs initialSelectedIndex={value} value={value} onChange={handleChange} aria-label="tweets or threads">

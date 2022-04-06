@@ -30,7 +30,7 @@ export default function Sidebar() {
             >
                 <Logo />
                 <List sx={{p: 2}}>
-                    <SidebarListItemIcon href='/edition/add-authors' primary='Add Authors' icon={<PersonSearch />} />
+                    <SidebarListItemIcon href='/discover' primary='Discover' icon={<PersonSearch />} />
                     <SidebarListItemIcon href='/bookmarks' primary='Bookmarks' icon={<StyleIcon />} />
                 </List>
                 <AuthorsList />

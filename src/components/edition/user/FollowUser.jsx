@@ -55,7 +55,7 @@ const Following = ({ unfollowAuthor, user }) => {
   const [content, setContent] = useState('Subscribed')
 
   return (
-    <FollowingButton loading={unfollowAuthor.isLoading}  onMouseOver={() => setContent('Unfollow')} onMouseOut={() => setContent('Subscribed')} size="small" onClick={() => { unfollowAuthor.mutate({ id: user.id }) }} variant="outlined">{content}</FollowingButton>
+    <FollowingButton loading={unfollowAuthor.isLoading} onTouchStart={() => setContent('Unfollow')} onTouchMove={() => setContent('Subscribed')} onMouseOver={() => setContent('Unfollow')} onMouseOut={() => setContent('Subscribed')} size="small" onClick={() => { unfollowAuthor.mutate({ id: user.id }) }} variant="outlined">{content}</FollowingButton>
   )
 }
 
