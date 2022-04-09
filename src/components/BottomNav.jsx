@@ -48,7 +48,7 @@ export default function BottomNav() {
         value="edition"
         component={NextLinkComposed}
         to={{
-          pathname: isLoading ? "/discover" : `/edition/${data[0].username}`,
+          pathname: "/edition",
         }}
       />
       <BottomNavigationAction

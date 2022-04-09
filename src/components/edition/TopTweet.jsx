@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   Paper,
-  Card,
   Avatar,
   Typography,
   useTheme,
   Link,
   Skeleton,
-  Icon,
 } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetContent } from "../Tweet";
 import SkeletonTweet from "../skeletons/SkeletonTweet";
 import { TweetInfo } from "../TweetInfo";
-import { isPostfixUnaryExpression } from "typescript";
 
 export default function TopTweet({ authorQuery, tweetQuery }) {
   const { data, isLoading } = tweetQuery;
