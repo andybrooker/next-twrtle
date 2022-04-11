@@ -1,71 +1,132 @@
-import React, { useState } from 'react';
-import { TweetContent } from '../../Tweet';
-import { Box, Dialog, DialogContent, DialogTitle, Fab, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/system';
-import CloseIcon from '@mui/icons-material/Close';
-
+import React, { useState } from "react";
+import { TweetContent } from "../../Tweet";
+import {
+  Box,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { styled } from "@mui/system";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Thread({ data, includes }) {
+  const [open, setOpen] = useState(false);
 
-    const [open, setOpen] = useState(false)
+  const mobile = useMediaQuery("(max-width: 600px)");
 
-    const mobile = useMediaQuery('(max-width: 600px)')
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleKeypress = e => {
-      if (e.key === 'Enter') {
-        handleOpen();
-      }
-    };
-
-    const getAuthorName = (tweet, includes) => {
-        const [author] = includes?.users.filter((user) => user.id == tweet.author_id)
-        return author.name
+  const handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      handleOpen();
     }
+  };
 
-    return (
-        <React.Fragment>
-            <CustomButton sx={{mb: 1}} role='button' tabIndex={0} onClick={handleOpen} onKeyPress={handleKeypress}>
-                <TweetContent data={data[0]} includes={includes} />
-            </CustomButton>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                fullWidth
-                fullScreen
-                maxWidth='xl'
-                scroll='body'
-                
-            >
-                <Fab disableRipple onClick={handleClose} sx={{border: '1px solid', backgroundColor: "background.paper", borderColor: "divider", boxShadow: 2, position: 'fixed', top: 16, right: 16, zIndex: 999}} size="small">
-                    <CloseIcon />
-                </Fab>
-                <DialogTitle sx={{mx: mobile ? 0 : 'auto', width: mobile ? '100%' : '760px', px: 5, mt: 2, backgroundColor: 'none', mb: 0}} >Thread by {getAuthorName(data[0], includes)}</DialogTitle>
-                <DialogContent sx={{mx: mobile ? 0 : 'auto', width: mobile ? '100%' : '760px'}}>{data.map((tweet, index) => <Box key={index} sx={{py: 1, px: 2}}><TweetContent data={tweet} includes={includes}/></Box>)}</DialogContent>
-            </Dialog>
-        </React.Fragment>
-    )
+  const getAuthorName = (tweet, includes) => {
+    const [author] = includes?.users.filter(
+      (user) => user.id == tweet.author_id
+    );
+    return author.name;
+  };
+
+  return (
+    <React.Fragment>
+      <CustomButton
+        role="button"
+        tabIndex={0}
+        onClick={handleOpen}
+        onKeyPress={handleKeypress}
+      >
+        <Typography sx={{ color: "text.secondary" }} variant="micro">
+          Thread – {data.length} Tweets
+        </Typography>
+        <TweetContent data={data[0]} includes={includes} />
+        <Box
+          sx={{
+            pt: 2,
+            maskImage:
+              "linear-gradient(to bottom, black 50%, transparent 100%)",
+          }}
+        >
+          <TweetContent data={data[1]} includes={includes} />
+        </Box>
+      </CustomButton>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        fullScreen
+        maxWidth="xl"
+        scroll="body"
+      >
+        <Fab
+          disableRipple
+          onClick={handleClose}
+          sx={{
+            border: "1px solid",
+            backgroundColor: "background.paper",
+            borderColor: "divider",
+            boxShadow: 2,
+            position: "fixed",
+            top: 16,
+            right: 16,
+            zIndex: 999,
+          }}
+          size="small"
+        >
+          <CloseIcon />
+        </Fab>
+        <DialogTitle
+          sx={{
+            mx: mobile ? 0 : "auto",
+            width: mobile ? "100%" : "760px",
+            px: 5,
+            mt: 2,
+            backgroundColor: "none",
+            mb: 0,
+          }}
+        >
+          Thread by {getAuthorName(data[0], includes)}
+        </DialogTitle>
+        <DialogContent
+          sx={{ mx: mobile ? 0 : "auto", width: mobile ? "100%" : "760px" }}
+        >
+          {data.map((tweet, index) => (
+            <Box key={index} sx={{ py: 1, px: 2 }}>
+              <TweetContent data={tweet} includes={includes} />
+            </Box>
+          ))}
+        </DialogContent>
+      </Dialog>
+    </React.Fragment>
+  );
 }
 
-const CustomButton = styled('div')(({ theme }) => ({
-    padding: theme.spacing(2),
-    borderRadius: '10px',
-    border: '1px solid',
-    borderColor: theme.palette.divider,
-    transition: 'all 150ms ease',
-    cursor: 'pointer',
-    '&:hover': {
-        boxShadow: theme.shadows[2]
-    }
-  }))
-
+const CustomButton = styled("div")(({ theme }) => ({
+  borderBottom: "1px solid",
+  borderColor: theme.palette.divider,
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
+  paddingLeft: theme.spacing(1),
+  transition: "all 150ms ease",
+  outline: 0,
+  cursor: "pointer",
+  "&:hover,&:focus": {
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
+  },
+  "&:focus": {
+    borderColor: theme.palette.primary.main,
+  },
+}));
 
 //   padding: 16px;
 //   border-radius: 8px;
@@ -96,4 +157,3 @@ const CustomButton = styled('div')(({ theme }) => ({
 // function CustomButton(props) {
 //   return <ButtonUnstyled {...props} component={CustomButtonRoot} />;
 // }
-

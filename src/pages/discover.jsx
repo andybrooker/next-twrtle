@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import useDebounce from "../hooks/useDebounce";
 import useSearch from "../hooks/useSearch";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
@@ -15,18 +15,20 @@ import {
   ListItemButton,
   InputAdornment,
   CircularProgress,
+  useMediaQuery,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CategoryMap from "../components/Category";
 
 export default function Author() {
-  const router = useRouter();
+  const mobile = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>
       <Box
         sx={{
-          p: 8,
+          p: mobile ? 2 : 8,
+          pt: mobile ? 4 : 8,
           pb: 4,
           display: "flex",
           flexDirection: "column",

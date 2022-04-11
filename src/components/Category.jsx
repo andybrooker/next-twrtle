@@ -8,6 +8,7 @@ import {
   Avatar,
   Typography,
   useMediaQuery,
+  Skeleton,
 } from "@mui/material";
 import useCategories from "../hooks/useCategories";
 import useAuthorsFromCategory from "../hooks/useAuthorsFromCategory";
@@ -58,45 +59,24 @@ export default function CategoryMap() {
           />
         ))}
       </Box>
-      <List sx={{ pt: 0 }}>
-        {authorsData?.map((author, index) => (
-          <ListItem
-            key={author.id}
-            disablePadding
-            sx={{ borderBottom: "1px solid", borderColor: "divider" }}
-          >
-            <ListItemButton
-              sx={{ py: 2 }}
-              to={{ pathname: `/edition/${author?.username}` }}
-              component={NextLinkComposed}
-            >
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                <Box>
-                  <Avatar
-                    alt={author?.name}
-                    src={author?.profile_image_url.replace("_normal", "")}
-                  ></Avatar>
-                </Box>
-                <Box>
-                  <Typography sx={{ color: "text.primary" }}>
-                    {author?.name}
-                  </Typography>
-                  <AuthorDescription
-                    authorQuery={{
-                      data: author,
-                      isLoading: areAuthorsLoading,
-                      isError: areAuthorsError,
-                    }}
-                  />
-                </Box>
-              </Box>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <Box sx={{ width: "100%" }}>
+        <FullAuthorsList loading={areAuthorsLoading} authors={authorsData} />
+      </Box>
     </Box>
   );
 }
+
+export const FullAuthorsList = ({ loading, authors }) => {
+  return (
+    <List sx={{ pt: 0 }}>
+      {loading
+        ? [0, 1, 2].map((value, index) => <SkeletonListItem key={index} />)
+        : authors?.map((author, index) => (
+            <AuthorsPageLink author={author} key={index} />
+          ))}
+    </List>
+  );
+};
 
 function Category({ category, selected, setCategory }) {
   return (
@@ -110,3 +90,71 @@ function Category({ category, selected, setCategory }) {
     </Button>
   );
 }
+
+const AuthorsPageLink = ({ author }) => {
+  return (
+    <ListItem
+      key={author.id}
+      disablePadding
+      sx={{ borderBottom: "1px solid", borderColor: "divider" }}
+    >
+      <ListItemButton
+        sx={{ py: 2 }}
+        to={{ pathname: `/edition/${author?.username}` }}
+        component={NextLinkComposed}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box>
+            <Avatar
+              alt={author?.name}
+              src={author?.profile_image_url.replace("_normal", "")}
+            ></Avatar>
+          </Box>
+          <Box>
+            <Typography sx={{ color: "text.primary" }}>
+              {author?.name}
+            </Typography>
+            <AuthorDescription
+              authorQuery={{
+                data: author,
+                isLoading: false,
+                isError: false,
+              }}
+            />
+          </Box>
+        </Box>
+      </ListItemButton>
+    </ListItem>
+  );
+};
+
+const SkeletonListItem = ({}) => {
+  return (
+    <ListItem
+      disablePadding
+      sx={{ borderBottom: "1px solid", borderColor: "divider" }}
+    >
+      <Box sx={{ py: 2, flexGrow: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box>
+            <Skeleton
+              animation="wave"
+              width={40}
+              height={40}
+              variant="circular"
+            />
+          </Box>
+          <Box sx={{ width: "100%" }}>
+            <Typography sx={{ color: "text.primary" }}>
+              <Skeleton animation="wave" width={100} variant="text" />
+            </Typography>
+            <Typography sx={{ width: "100%" }}>
+              <Skeleton animation="wave" variant="text" />
+              <Skeleton animation="wave" variant="text" />
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </ListItem>
+  );
+};

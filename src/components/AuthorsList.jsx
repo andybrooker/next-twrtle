@@ -12,7 +12,7 @@ export default function AuthorsList() {
   }
 
   return (
-    <List sx={{ px: 2, overflow: "scroll", height: "200px", pt: 0 }}>
+    <List sx={{ px: 2, overflow: "auto", height: "200px", pt: 0 }}>
       <ListSubheader>My Authors</ListSubheader>
       {isLoading
         ? [0, 1, 2].map(({ value }) => (
