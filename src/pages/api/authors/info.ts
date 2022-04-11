@@ -8,10 +8,17 @@ import getAuthors from '../../../utils/getAuthors'
 import { NextApiRequest, NextApiResponse } from 'next'
 import type { TwitterApi } from 'twitter-api-v2'
 import { Author } from "@prisma/client";
+import { DefaultSession, Session } from "next-auth"
 
+interface ExtendedSession extends Session {
+  user: {
+    id: string
+  } & DefaultSession["user"]
+}
 interface ExtendedRequest extends NextApiRequest {
   twitter: TwitterApi,
   authors: Author[],
+  session: ExtendedSession
 
 }
 
