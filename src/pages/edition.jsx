@@ -16,7 +16,6 @@ export default function Edition() {
       <Box
         sx={{
           p: mobile ? 2 : 8,
-          pr: mobile ? 2 : 6,
           pt: mobile ? 4 : 8,
           pb: mobile ? 0 : 4,
         }}
@@ -36,7 +35,10 @@ export default function Edition() {
             {dt}
           </Typography>
         </Box>
-        <Box sx={{ pt: 2, ml: mobile ? 0 : -2 }}>
+        <Box sx={{ pt: 4 }}>
+          <Typography component="h2" variant="large" color="text.secondary">
+            My Authors
+          </Typography>
           <FullAuthorsList authors={data} loading={isLoading} />
         </Box>
       </Box>

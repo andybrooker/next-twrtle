@@ -73,24 +73,26 @@ export async function getServerSideProps(context) {
     params: { author },
   } = context;
   const { id } = await getSession(context);
-  const authorFollowed = await prisma.author.findMany({
-    where: {
-      users: {
-        some: {
-          userId: id,
+
+  const [authorFollowed, onTwrtle] = await Promise.all([
+    prisma.author.findMany({
+      where: {
+        users: {
+          some: {
+            userId: id,
+          },
+        },
+        username: {
+          equals: author,
         },
       },
-      username: {
-        equals: author,
+    }),
+    prisma.author.findFirst({
+      where: {
+        username: author,
       },
-    },
-  });
-
-  const onTwrtle = await prisma.author.findFirst({
-    where: {
-      username: author,
-    },
-  });
+    }),
+  ]);
 
   userFollows = authorFollowed.length == 0 ? false : true;
   showData = onTwrtle ? true : false;

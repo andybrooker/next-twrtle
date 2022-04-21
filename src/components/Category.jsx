@@ -67,8 +67,10 @@ export default function CategoryMap() {
 }
 
 export const FullAuthorsList = ({ loading, authors }) => {
+  const mobile = useMediaQuery("(max-width: 700px)");
+
   return (
-    <List sx={{ pt: 0 }}>
+    <List sx={{ pt: 1, mx: -2 }}>
       {loading
         ? [0, 1, 2].map((value, index) => <SkeletonListItem key={index} />)
         : authors?.map((author, index) => (
@@ -96,7 +98,17 @@ const AuthorsPageLink = ({ author }) => {
     <ListItem
       key={author.id}
       disablePadding
-      sx={{ borderBottom: "1px solid", borderColor: "divider" }}
+      sx={{
+        borderBottom: "1px solid",
+        borderColor: "divider",
+        "&:last-child": {
+          borderBottom: "none",
+          a: { borderBottomRightRadius: 8, borderBottomLeftRadius: 8 },
+        },
+        "&:first-child": {
+          a: { borderTopRightRadius: 8, borderTopLeftRadius: 8 },
+        },
+      }}
     >
       <ListItemButton
         sx={{ py: 2 }}
@@ -134,7 +146,7 @@ const SkeletonListItem = ({}) => {
       disablePadding
       sx={{ borderBottom: "1px solid", borderColor: "divider" }}
     >
-      <Box sx={{ py: 2, flexGrow: 1 }}>
+      <Box sx={{ py: 2, flexGrow: 1, px: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Box>
             <Skeleton
