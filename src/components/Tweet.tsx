@@ -20,6 +20,7 @@ import TweetMedia from "./edition/user/TweetMedia";
 import Image from "next/image";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import useLink from "../hooks/useLink";
+import QuoteTweet from "./QuoteTweet";
 
 export default function Tweet({
   data,
@@ -54,18 +55,79 @@ export const TweetContent = ({
   data: TweetV2;
   includes: ApiV2Includes;
 }) => {
-  //One Link Case
+  //Quote Tweets
+  if (
+    data.referenced_tweets &&
+    data.referenced_tweets.find(
+      (referenced_tweet) => referenced_tweet.type === "quoted"
+    )
+  ) {
+    const qt_id = data.referenced_tweets.filter(
+      (referenced_tweet) => referenced_tweet.type === "quoted"
+    )[0].id;
+
+    const quote_tweet = includes.tweets.filter(
+      (quote_tweet) => quote_tweet.id === qt_id
+    )[0];
+
+    if (quote_tweet) {
+      if (data.entities.urls.length > 1) {
+        data.entities.urls.forEach((url, index) => {
+          if (index === 0 && !url.display_url.includes("pic.twitter.com")) {
+            data.text = data.text.replace(url.url, url.expanded_url);
+          } else {
+            data.text = data.text.replace(url.url, "");
+          }
+        });
+      } else {
+        data.text = data.text.replace(data.entities.urls[0].url, "");
+      }
+    }
+
+    if (data?.attachments?.hasOwnProperty("media_keys")) {
+      const media_keys = data.attachments.media_keys;
+      const hasMedia = includes.hasOwnProperty("media");
+
+      let media_array: MediaObjectV2[];
+
+      if (hasMedia) {
+        console.log(includes.media);
+        console.log(media_keys);
+        const media = includes.media;
+        media_array = media.filter((element) =>
+          media_keys.includes(element.media_key)
+        );
+        console.log(media_array);
+      }
+
+      return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <TweetText tweet={data} />
+          {hasMedia && <TweetMedia media={media_array} />}
+          {quote_tweet && <QuoteTweet data={quote_tweet} includes={includes} />}
+        </Box>
+      );
+    }
+
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <TweetText tweet={data} />
+        {quote_tweet && <QuoteTweet data={quote_tweet} includes={includes} />}
+      </Box>
+    );
+  }
   if (
     data?.entities?.urls?.length == 1 &&
     !data.attachments &&
     (!data.referenced_tweets ||
       data.referenced_tweets.find((object) => object.type === "replied_to"))
   ) {
+    //One Link Case
     data.text = data.text.replace(data.entities.urls[0].url, "");
 
     return (
       <>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <TweetText tweet={data} />
           <TweetLink entity={data?.entities?.urls[0]} />
         </Box>
@@ -80,17 +142,9 @@ export const TweetContent = ({
     (!data.referenced_tweets ||
       data.referenced_tweets.find((object) => object.type === "replied_to"))
   ) {
-    data.entities?.urls?.forEach((URL) => {
-      if (URL.display_url.includes("pic.twitter.com"))
-        data.text = data.text.replace(URL.url, "");
-      else data.text = data.text.replace(URL.url, URL.expanded_url);
-    });
+    convertUrlsInData(data);
 
     const mks = data.attachments.media_keys;
-
-    if (!mks) {
-      console.log(data.attachments);
-    }
 
     const isMedia = includes?.hasOwnProperty("media");
 
@@ -320,3 +374,10 @@ const MetascrapedLink = ({ expanded_url, display_url }) => {
     </Link>
   );
 };
+function convertUrlsInData(data: TweetV2) {
+  data.entities?.urls?.forEach((URL) => {
+    if (URL.display_url.includes("pic.twitter.com"))
+      data.text = data.text.replace(URL.url, "");
+    else data.text = data.text.replace(URL.url, URL.expanded_url);
+  });
+}

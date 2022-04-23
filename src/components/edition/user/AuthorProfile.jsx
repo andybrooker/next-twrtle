@@ -13,11 +13,8 @@ import {
 import { useTheme } from "@mui/material/styles";
 import FollowUser from "./FollowUser";
 
-export default function AuthorProfile({ userFollows }) {
-  const router = useRouter();
-  const { author } = router.query;
-
-  const { data, isLoading, isError } = useTwitterUser(author);
+export default function AuthorProfile({ userFollows, authorQuery }) {
+  const { data, isLoading, isError } = authorQuery;
   const useFullWidth = useMediaQuery("(max-width: 800px)");
 
   if (isError) {
