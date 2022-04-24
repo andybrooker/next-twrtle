@@ -28,15 +28,29 @@ export default function Edition() {
             gap: 1,
           }}
         >
-          <Typography variant="h3" component="h1">
+          <Typography
+            variant="large"
+            fontFamily="p22-mackinac-pro"
+            fontWeight={500}
+            component="h1"
+          >
             Your Sunday Timelines <Typography></Typography>
           </Typography>
-          <Typography sx={{ fontWeight: 300 }} color="text.secondary">
+          <Typography
+            sx={{ fontWeight: 300 }}
+            variant="small"
+            color="text.secondary"
+          >
             {dt}
           </Typography>
         </Box>
         <Box sx={{ pt: 4 }}>
-          <Typography component="h2" variant="large" color="text.secondary">
+          <Typography
+            component="h2"
+            variant="medium"
+            fontWeight={400}
+            color="text.secondary"
+          >
             My Authors
           </Typography>
           <FullAuthorsList authors={data} loading={isLoading} />

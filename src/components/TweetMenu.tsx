@@ -1,14 +1,13 @@
-import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { ListItemIcon, ListItemText } from '@mui/material'
-import ToTwitter from '../components/icons/ToTwitter'
-import InsertPhoto from '@mui/icons-material/InsertPhoto';
-import StyleIcon from '@mui/icons-material/Style';
-import { Link } from '@mui/material';
-import { TweetV2 } from 'twitter-api-v2';
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { ListItemIcon, ListItemText } from "@mui/material";
+import ToTwitter from "../components/icons/ToTwitter";
+import StyleIcon from "@mui/icons-material/BookmarkBorder";
+import { Link } from "@mui/material";
+import { TweetV2 } from "twitter-api-v2";
 
 export default function PositionedMenu({ data }: { data: TweetV2 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,13 +23,13 @@ export default function PositionedMenu({ data }: { data: TweetV2 }) {
     <div>
       <IconButton
         id="more-actions-button"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-controls={open ? "demo-positioned-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        size='small'
+        size="small"
       >
-        <MoreHorizIcon fontSize='small' />
+        <MoreHorizIcon fontSize="small" />
       </IconButton>
       <Menu
         id="demo-positioned-menu"
@@ -39,29 +38,34 @@ export default function PositionedMenu({ data }: { data: TweetV2 }) {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
       >
-        <Link href={`https://twitter.com/${data?.author_id}/status/${data?.id}`} target="_blank"
-          rel="noreferrer" underline="none"><MenuItem
-            sx={{ color: 'text.secondary' }} onClick={handleClose}>
+        <Link
+          href={`https://twitter.com/${data?.author_id}/status/${data?.id}`}
+          target="_blank"
+          rel="noreferrer"
+          underline="none"
+        >
+          <MenuItem sx={{ color: "text.secondary" }} onClick={handleClose}>
             <ListItemIcon>
               <ToTwitter />
             </ListItemIcon>
-            <ListItemText>View on Twitter</ListItemText></MenuItem></Link>
-        <MenuItem sx={{ color: 'text.secondary' }} onClick={handleClose}><ListItemIcon>
-          <StyleIcon fontSize="small" />
-        </ListItemIcon>
+            <ListItemText>View on Twitter</ListItemText>
+          </MenuItem>
+        </Link>
+        <MenuItem sx={{ color: "text.secondary" }} onClick={handleClose}>
+          <ListItemIcon>
+            <StyleIcon fontSize="small" />
+          </ListItemIcon>
           <ListItemText>Add to Bookmarks</ListItemText>
         </MenuItem>
       </Menu>
     </div>
   );
 }
-
-

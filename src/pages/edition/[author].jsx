@@ -10,11 +10,16 @@ import NestedLayout from "../../components/nestedlayout";
 import Content from "../../components/edition/user/Content";
 
 import useDate from "../../hooks/useDate";
+import useTwitterUser from "../../hooks/useTwitterUser";
 import { prisma } from "../../lib/clients/prisma";
 import { getSession } from "next-auth/react";
 export default function Author({ userFollows, showData }) {
   const mobile = useMediaQuery("(max-width: 800px)");
   const padding = useMediaQuery("(max-width: 600px)");
+  const router = useRouter();
+  const { author } = router.query;
+
+  const authorQuery = useTwitterUser(author);
 
   return (
     <div>
@@ -29,10 +34,10 @@ export default function Author({ userFollows, showData }) {
           rowGap: 2,
         }}
       >
-        <AuthorProfile userFollows={userFollows} />
+        <AuthorProfile userFollows={userFollows} authorQuery={authorQuery} />
         {mobile ? <></> : <SundayTimelines />}
       </Box>
-      <Content showData={showData} />
+      <Content showData={showData} authorQuery={authorQuery} />
     </div>
   );
 }
@@ -43,12 +48,18 @@ export const SundayTimelines = () => {
   return (
     <Box sx={{ p: 2, display: "flex", flexDirection: "column" }}>
       <Typography
-        sx={{ fontSize: "24px", fontWeight: 500, textAlign: "right" }}
-        variant="h3"
+        sx={{ fontWeight: 500, textAlign: "right" }}
+        variant="large"
+        component="span"
+        fontFamily="p22-mackinac-pro"
       >
         The Sunday Timelines
       </Typography>
-      <Typography sx={{ textAlign: "right", fontWeight: 300 }} component="time">
+      <Typography
+        sx={{ textAlign: "right", fontWeight: 300 }}
+        variant="small"
+        component="time"
+      >
         {dt}
       </Typography>
     </Box>

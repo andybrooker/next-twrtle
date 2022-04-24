@@ -5,7 +5,7 @@ import AuthorsList from "./AuthorsList";
 import Logo from "./Logo";
 import SidebarListItemIcon from "./SidebarListItemIcon";
 import PersonSearch from "@mui/icons-material/PersonSearch";
-import StyleIcon from "@mui/icons-material/Style";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import EditionIcon from "./icons/EditionIcon";
 
 export default function Sidebar() {
@@ -43,7 +43,7 @@ export default function Sidebar() {
         <SidebarListItemIcon
           href="/bookmarks"
           primary="Bookmarks"
-          icon={<StyleIcon />}
+          icon={<BookmarkBorderIcon />}
         />
       </List>
       <AuthorsList />

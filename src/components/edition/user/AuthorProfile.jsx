@@ -13,11 +13,8 @@ import {
 import { useTheme } from "@mui/material/styles";
 import FollowUser from "./FollowUser";
 
-export default function AuthorProfile({ userFollows }) {
-  const router = useRouter();
-  const { author } = router.query;
-
-  const { data, isLoading, isError } = useTwitterUser(author);
+export default function AuthorProfile({ userFollows, authorQuery }) {
+  const { data, isLoading, isError } = authorQuery;
   const useFullWidth = useMediaQuery("(max-width: 800px)");
 
   if (isError) {
@@ -29,20 +26,27 @@ export default function AuthorProfile({ userFollows }) {
       sx={{
         display: "flex",
         width: "100%",
-        flexDirection: "row",
         columnGap: 2,
         alignItems: "center",
-        justifyContent: useFullWidth ? "space-between" : "flex-start",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <AuthorProfileImage author={data} isLoading={isLoading} />
-        <Box>
+      <AuthorProfileImage author={data} isLoading={isLoading} />
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          flexDirection: useFullWidth ? "row" : "column",
+          flexGrow: 1,
+          justifyContent: useFullWidth ? "space-between" : "flex-start",
+          alignItems: useFullWidth ? "center" : "flex-start",
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <AuthorName author={data} isLoading={isLoading} />
           <AuthorUsername author={data} isLoading={isLoading} />
         </Box>
+        <FollowUser userFollows={userFollows} author={isLoading ? {} : data} />
       </Box>
-      <FollowUser userFollows={userFollows} author={isLoading ? {} : data} />
     </Box>
   );
 }
@@ -65,7 +69,12 @@ const AuthorProfileImage = ({ author, isLoading }) => {
 
 export const AuthorName = ({ author, isLoading }) => {
   return (
-    <Typography variant="h3" component="h1">
+    <Typography
+      variant="large"
+      fontWeight={500}
+      fontFamily="p22-mackinac-pro"
+      component="h1"
+    >
       {isLoading ? <Skeleton animation="wave" /> : author?.name}
     </Typography>
   );
@@ -82,6 +91,7 @@ export const AuthorUsername = ({ author, isLoading }) => {
         },
         fontWeight: 300,
       }}
+      variant="small"
       component="a"
     >
       {isLoading ? (

@@ -45,7 +45,12 @@ export default function Author() {
             gap: 1,
           }}
         >
-          <Typography variant="h3" component="h1">
+          <Typography
+            variant="large"
+            fontFamily="p22-mackinac-pro"
+            fontWeight={500}
+            component="h1"
+          >
             Discover
           </Typography>
           <SearchBar />
@@ -58,7 +63,12 @@ export default function Author() {
             gap: 1,
           }}
         >
-          <Typography variant="h3" component="h1">
+          <Typography
+            variant="large"
+            fontFamily="p22-mackinac-pro"
+            fontWeight={500}
+            component="h1"
+          >
             Curated
           </Typography>
           <CategoryMap />
