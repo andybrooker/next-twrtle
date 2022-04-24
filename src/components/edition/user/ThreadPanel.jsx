@@ -10,7 +10,7 @@ export default function ThreadPanel({ isLoading, data }) {
     <TabPanel
       value="threadsPanel"
       index={0}
-      sx={{ px: 0, py: 0, width: "100%" }}
+      sx={{ px: 0, py: 0, ml: "auto", mr: "auto", maxWidth: "700px" }}
     >
       {isLoading
         ? "Loading..."

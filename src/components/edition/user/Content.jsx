@@ -52,6 +52,7 @@ export default function Content({ showData, authorQuery }) {
             value={value}
             onChange={handleChange}
             aria-label="tweets or threads"
+            sx={{ maxWidth: "700px", ml: "auto", mr: "auto" }}
           >
             <Tab
               sx={{ fontWeight: 400 }}
