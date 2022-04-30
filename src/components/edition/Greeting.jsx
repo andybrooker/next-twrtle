@@ -3,23 +3,24 @@ import { useSession } from "next-auth/react";
 import { Typography, Container, Icon } from "@mui/material";
 import Link from "../Link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import useAuthors from "../../hooks/useAuthors";
+import { DateTime } from "luxon";
 
 export default function Greeting() {
   const { data: session } = useSession();
-  const { data, isLoading, isError } = useAuthors();
 
   return (
     <div>
       <Typography
-        sx={{ my: 2, fontSize: "24px", textAlign: "center" }}
+        sx={{ my: 2, fontSize: "24px", fontWeight: 500, textAlign: "center" }}
         variant="h1"
         component="h1"
       >
         Hello, {session?.user?.name}
       </Typography>
       <Typography sx={{ textAlign: "center" }} variant="p">
-        Your next edition will be available on Sunday!
+        {DateTime.now().weekday !== 7
+          ? "Your next edition will be available on Sunday!"
+          : "Your latest edition is available today!"}
       </Typography>
 
       <Container

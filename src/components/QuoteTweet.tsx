@@ -113,12 +113,12 @@ const AuthorName = ({ author, isLoading }) => {
   return (
     <Typography
       sx={{
-        fontWeight: 400,
+        fontWeight: 500,
         m: 0,
         p: 0,
         lineHeight: 1,
         color: "black",
-        fontSize: "15px",
+        fontSize: "14px",
       }}
       variant="medium"
       component="p"

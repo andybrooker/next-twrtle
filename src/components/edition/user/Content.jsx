@@ -43,40 +43,58 @@ export default function Content({ showData, authorQuery }) {
     }
   }, [data, isLoading]);
 
+  const tabStyle = {
+    fontWeight: 500,
+    fontFamily: "Clash Grotesk",
+    fontSize: "17px",
+    p: 0,
+    minWidth: "",
+    "&.Mui-selected": {
+      transition: "0.2s ease-in-out",
+    },
+  };
+
   return (
     <Box sx={{ px: reduce_padding ? 2 : 8 }}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            initialSelectedIndex={value}
-            value={value}
-            onChange={handleChange}
-            aria-label="tweets or threads"
-            sx={{ maxWidth: "700px", ml: "auto", mr: "auto" }}
-          >
-            <Tab
-              sx={{ fontWeight: 400 }}
-              disabled={disabled.tweets}
-              value="tweetsPanel"
-              disableRipple
-              label="Tweets"
-            />
-            <Tab
-              sx={{ fontWeight: 400 }}
-              disabled={disabled.threads}
-              value="threadsPanel"
-              disableRipple
-              label="Threads"
-            />
-            <Tab
-              sx={{ fontWeight: 400 }}
-              disabled={!newsletter.hasNewsletter}
-              value="newsletterPanel"
-              disableRipple
-              label="Newsletter"
-            />
-          </Tabs>
-        </Box>
+        <Tabs
+          initialSelectedIndex={value}
+          value={value}
+          onChange={handleChange}
+          aria-label="tweets or threads"
+          sx={{
+            maxWidth: "700px",
+            ml: "auto",
+            mr: "auto",
+            "& .MuiTabs-flexContainer": {
+              columnGap: 2,
+              display: "flex",
+            },
+          }}
+          // TabIndicatorProps={{ sx: { display: "none" } }}
+        >
+          <Tab
+            sx={tabStyle}
+            disabled={disabled.tweets}
+            value="tweetsPanel"
+            disableRipple
+            label="Tweets"
+          />
+          <Tab
+            sx={tabStyle}
+            disabled={disabled.threads}
+            value="threadsPanel"
+            disableRipple
+            label="Threads"
+          />
+          <Tab
+            sx={tabStyle}
+            disabled={!newsletter.hasNewsletter}
+            value="newsletterPanel"
+            disableRipple
+            label="Newsletter"
+          />
+        </Tabs>
         <TweetPanel isLoading={isLoading} tweets={data?.tweets} />
         <ThreadPanel isLoading={isLoading} data={data} />
       </TabContext>

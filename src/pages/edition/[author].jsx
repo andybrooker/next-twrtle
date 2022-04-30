@@ -51,12 +51,12 @@ export const SundayTimelines = () => {
         sx={{ fontWeight: 500, textAlign: "right" }}
         variant="large"
         component="span"
-        fontFamily="p22-mackinac-pro"
+        fontFamily="Clash Grotesk"
       >
         The Sunday Timelines
       </Typography>
       <Typography
-        sx={{ textAlign: "right", fontWeight: 300 }}
+        sx={{ textAlign: "right", fontWeight: 400 }}
         variant="small"
         component="time"
       >
@@ -77,36 +77,46 @@ Author.getLayout = function getLayout(page) {
 };
 
 export async function getServerSideProps(context) {
-  var userFollows = null;
-  var showData = null;
+  try {
+    var userFollows = null;
+    var showData = null;
 
-  const {
-    params: { author },
-  } = context;
-  const { id } = await getSession(context);
+    const {
+      params: { author },
+    } = context;
+    const { id } = await getSession(context);
 
-  const [authorFollowed, onTwrtle] = await Promise.all([
-    prisma.author.findMany({
-      where: {
-        users: {
-          some: {
-            userId: id,
+    const [authorFollowed, onTwrtle] = await Promise.all([
+      prisma.author.findMany({
+        where: {
+          users: {
+            some: {
+              userId: id,
+            },
+          },
+          username: {
+            equals: author,
           },
         },
-        username: {
-          equals: author,
+      }),
+      prisma.author.findFirst({
+        where: {
+          username: author,
         },
-      },
-    }),
-    prisma.author.findFirst({
-      where: {
-        username: author,
-      },
-    }),
-  ]);
+      }),
+    ]);
 
-  userFollows = authorFollowed.length == 0 ? false : true;
-  showData = onTwrtle ? true : false;
+    userFollows = authorFollowed.length == 0 ? false : true;
+    showData = onTwrtle ? true : false;
 
-  return { props: { userFollows, showData } };
+    return { props: { userFollows, showData } };
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
 }

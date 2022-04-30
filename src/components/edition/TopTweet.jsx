@@ -99,7 +99,7 @@ const AuthorProfileImage = ({ author, isLoading }) => {
 const AuthorName = ({ author, isLoading }) => {
   return (
     <Typography
-      sx={{ fontWeight: 400, m: 0, p: 0, lineHeight: 1, color: "black" }}
+      sx={{ fontWeight: 500, m: 0, p: 0, lineHeight: 1, color: "black" }}
       variant="medium"
       component="p"
     >

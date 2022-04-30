@@ -7,7 +7,12 @@ export default function Link({ href, children }) {
   return (
     <NextLink href={href} passHref>
       <MUILink
-        sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+          fontWeight: 500,
+        }}
         underline="none"
       >
         {children}

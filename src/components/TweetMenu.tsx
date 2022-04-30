@@ -19,6 +19,11 @@ export default function PositionedMenu({ data }: { data: TweetV2 }) {
     setAnchorEl(null);
   };
 
+  const menuTextStyle = {
+    fontSize: "14px",
+    fontWeight: 500,
+  };
+
   return (
     <div>
       <IconButton
@@ -56,14 +61,18 @@ export default function PositionedMenu({ data }: { data: TweetV2 }) {
             <ListItemIcon>
               <ToTwitter />
             </ListItemIcon>
-            <ListItemText>View on Twitter</ListItemText>
+            <ListItemText primaryTypographyProps={menuTextStyle}>
+              View on Twitter
+            </ListItemText>
           </MenuItem>
         </Link>
         <MenuItem sx={{ color: "text.secondary" }} onClick={handleClose}>
           <ListItemIcon>
             <StyleIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Add to Bookmarks</ListItemText>
+          <ListItemText primaryTypographyProps={menuTextStyle}>
+            Add to Bookmarks
+          </ListItemText>
         </MenuItem>
       </Menu>
     </div>

@@ -18,7 +18,7 @@ export default function Profile() {
       >
         <Typography
           variant="large"
-          fontFamily="p22-mackinac-pro"
+          fontFamily="Clash Grotesk"
           fontWeight={500}
           component="h1"
         >

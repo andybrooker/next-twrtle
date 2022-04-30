@@ -44,47 +44,48 @@ declare module '@mui/material/Typography' {
 let theme = createTheme({
   typography: {
     fontFamily: [
-      'halyard-display',
-      'p22-mackinac-pro',
+      'Satoshi',
+      'Clash Grotesk',
+      'sans-serif'
     ].join(','),
     h1: {
-      fontFamily: 'p22-mackinac-pro',
+      fontFamily: 'Clash Grotesk',
       fontSize: '44px',
-      fontWeight: '500'
+      fontWeight: '600'
     },
     h2: {
-      fontFamily: 'p22-mackinac-pro',
+      fontFamily: 'Clash Grotesk',
       fontSize: '32px',
       fontWeight: '500'
     },
     p: {
-      fontWeight: '300'
+      fontWeight: '400'
     },
     h3: {
       fontSize: '24px',
       fontWeight: '500',
-      fontFamily: 'p22-mackinac-pro'
+      fontFamily: 'Clash Grotesk'
     },
     large: {
       fontSize: '19px',
-      fontWeight: 400
+      fontWeight: 500
     },
     medium: {
-      fontSize: '16px',
-      fontWeight: 300,
+      fontSize: '15px',
+      fontWeight: 400,
       '@media (max-width:600px)': {
-        fontSize: '15px'
+        fontSize: '14px'
       }
     },
     small: {
-      fontSize: '14px',
-      fontWeight: 300,
+      fontSize: '13px',
+      fontWeight: 400,
       '@media (max-width:600px)': {
-        fontSize: '13px'
+        fontSize: '12px'
       }
     },
     micro: {
-      fontSize: '11px'
+      fontSize: '10px'
     }
   },
   palette: {

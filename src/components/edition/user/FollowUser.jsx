@@ -69,15 +69,15 @@ const AddUser = ({ addAuthor, user }) => {
 };
 
 const Following = ({ unfollowAuthor, user }) => {
-  const [content, setContent] = useState("Subscribed");
+  const [content, setContent] = useState("Added");
 
   return (
     <FollowingButton
       loading={unfollowAuthor.isLoading}
       onTouchStart={() => setContent("Unfollow")}
-      onTouchMove={() => setContent("Subscribed")}
+      onTouchMove={() => setContent("Added")}
       onMouseOver={() => setContent("Unfollow")}
-      onMouseOut={() => setContent("Subscribed")}
+      onMouseOut={() => setContent("Added")}
       size="small"
       onClick={() => {
         unfollowAuthor.mutate({ id: user.id });

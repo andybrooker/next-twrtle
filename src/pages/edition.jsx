@@ -30,14 +30,14 @@ export default function Edition() {
         >
           <Typography
             variant="large"
-            fontFamily="p22-mackinac-pro"
+            fontFamily="Clash Grotesk"
             fontWeight={500}
             component="h1"
           >
-            Your Sunday Timelines <Typography></Typography>
+            The Sunday Timelines <Typography></Typography>
           </Typography>
           <Typography
-            sx={{ fontWeight: 300 }}
+            sx={{ fontWeight: 400 }}
             variant="small"
             color="text.secondary"
           >
@@ -48,7 +48,7 @@ export default function Edition() {
           <Typography
             component="h2"
             variant="medium"
-            fontWeight={400}
+            fontWeight={500}
             color="text.secondary"
           >
             My Authors
