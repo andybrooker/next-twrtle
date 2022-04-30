@@ -72,7 +72,7 @@ export const AuthorName = ({ author, isLoading }) => {
     <Typography
       variant="large"
       fontWeight={500}
-      fontFamily="p22-mackinac-pro"
+      fontFamily="Clash Grotesk"
       component="h1"
     >
       {isLoading ? <Skeleton animation="wave" /> : author?.name}

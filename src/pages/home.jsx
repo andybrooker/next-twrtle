@@ -64,15 +64,21 @@ const TopTweets = ({ width }) => {
     <TabContext value={value}>
       <Box sx={{ width: "100%", px: width < 800 ? 0 : 4 }}>
         <Box sx={{ px: 3 }}>
-          <Typography component="h2" variant="large" color="text.secondary">
+          <Typography
+            component="h2"
+            variant="large"
+            fontFamily="Clash Grotesk"
+            color="text.secondary"
+          >
             Top Tweets of the Week
           </Typography>
           <Tabs
             sx={{
-              overflow: "visible",
               minHeight: 0,
               "& .MuiTabs-flexContainer": {
                 columnGap: 2,
+                display: "flex",
+                flexWrap: "wrap",
               },
             }}
             TabIndicatorProps={{

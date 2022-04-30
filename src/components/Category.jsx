@@ -83,7 +83,7 @@ export const FullAuthorsList = ({ loading, authors }) => {
 function Category({ category, selected, setCategory }) {
   return (
     <Button
-      sx={{ opacity: selected ? 1 : 0.5 }}
+      sx={{ opacity: selected ? 1 : 0.5, fontWeight: 500 }}
       onClick={() => setCategory(category)}
       variant="outlined"
       color="secondary"
@@ -123,7 +123,7 @@ const AuthorsPageLink = ({ author }) => {
             ></Avatar>
           </Box>
           <Box>
-            <Typography sx={{ color: "text.primary" }}>
+            <Typography fontWeight={500} sx={{ color: "text.primary" }}>
               {author?.name}
             </Typography>
             <AuthorDescription

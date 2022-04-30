@@ -101,7 +101,24 @@ export default function Thread({ data, includes }) {
           sx={{ mx: mobile ? 0 : "auto", width: mobile ? "100%" : "760px" }}
         >
           {data.map((tweet, index) => (
-            <Box key={index} sx={{ py: 1, px: 2 }}>
+            <Box
+              key={index}
+              sx={{
+                py: 2,
+                px: 2,
+                position: "relative",
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  bottom: "0px",
+                  width: "10%",
+                  left: "45%",
+                  height: "1px",
+                  borderBottom: "1px solid",
+                  borderBottomColor: "divider",
+                },
+              }}
+            >
               <TweetContent data={tweet} includes={includes} />
             </Box>
           ))}
