@@ -28,10 +28,11 @@ handler.get(async (req: ExtendedRequest, res: NextApiResponse) => {
   }
 
   const tsquerySpecialChars = /[-'"()|&:*!]/g;
-  const getQueryFromSearchPhrase = (term) =>
-    term.replace(tsquerySpecialChars, "").trim().concat(":*");
+  const getQueryFromSearchPhrase = (term: string) =>
+    term.replace(tsquerySpecialChars, "").trim()
 
-  const query = getQueryFromSearchPhrase(term);
+  const search = getQueryFromSearchPhrase(term);
+  const query = search.concat(":*");
 
   try {
     const authors = await prisma.author.findMany({
@@ -42,9 +43,12 @@ handler.get(async (req: ExtendedRequest, res: NextApiResponse) => {
       },
     });
 
+    console.log(authors)
+
     switch(authors.length) {
       case 0:
-        res.status(200).send([])
+        const { data: twitterUser } = await req.twitter.v2.userByUsername(search, { 'user.fields': ['profile_image_url', 'description', 'entities'] })
+        res.status(200).send([twitterUser])
         break;
       default:
         const usernames = authors.map((author, index) => author.username).join(',')
