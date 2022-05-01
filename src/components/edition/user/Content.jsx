@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, Tabs, Tab, useMediaQuery } from "@mui/material";
 import { TabPanel, TabContext } from "@mui/lab";
 import { useRouter } from "next/router";
 import useTweets from "../../../hooks/useTweets";
 import TweetPanel from "./TweetPanel";
 import ThreadPanel from "./ThreadPanel";
+import { ObjectFlags } from "typescript";
 
 export default function Content({ showData, authorQuery }) {
   const reduce_padding = useMediaQuery("(max-width: 600px)");
@@ -30,18 +31,28 @@ export default function Content({ showData, authorQuery }) {
   const { data, isLoading } = useTweets(author);
 
   useEffect(() => {
-    if (!isLoading && Object.keys(data?.tweets).length === 0) {
-      setDisabled((disabled) => ({ ...disabled, tweets: true }));
-      setValue("threadsPanel");
-    }
-
-    if (!isLoading && Object.keys(data?.threads).length === 0) {
-      setDisabled((disabled) => ({ ...disabled, threads: true }));
+    if (isLoading) {
       setValue("tweetsPanel");
     } else {
-      setDisabled({ threads: false, tweets: false });
+      if (isEmpty(data?.threads) && isEmpty(data?.tweets)) {
+        setValue(false);
+        setDisabled({ threads: true, tweets: true });
+      } else if (isEmpty(data?.threads)) {
+        setValue("tweetsPanel");
+        setDisabled({ threads: true, tweets: false });
+      } else if (isEmpty(data?.tweets)) {
+        setValue("threadsPanel");
+        setDisabled({ tweets: true, threads: false });
+      } else {
+        setValue("tweetsPanel");
+        setDisabled({ threads: false, tweets: false });
+      }
     }
   }, [data, isLoading]);
+
+  function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+  }
 
   const tabStyle = {
     fontWeight: 500,
