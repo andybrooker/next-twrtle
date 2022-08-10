@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { TweetV2, TwitterApi as Twitter } from 'twitter-api-v2'
 import { getExpiryDate, getStartAndEndTime } from './dateUtils';
 import { redis } from '../lib/clients/redis';
-import util from "util"
+
 
 interface ExtendedRequest extends NextApiRequest {
   data: TweetV2[],
