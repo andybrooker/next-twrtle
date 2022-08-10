@@ -5,11 +5,12 @@ import { useSession, getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SignInButton from "../components/SignInButton";
-import { Grid, Typography, Container, styled } from "@mui/material";
+import { Box, Typography, Container, styled } from "@mui/material";
 import { TextLoop } from "react-text-loop-next";
 import LoadingPage from "../components/LoadingPage";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import HeroImage from "../../public/HeroImage.png";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -37,10 +38,29 @@ export default function Home() {
       </Header>
       <main className={styles.main}>
         <HomepageCopy />
+        <div className={styles.heroimagediv}>
+          <Image
+            className={styles.heroimage}
+            width={800}
+            height={800 / (2511 / 1309)}
+            src={HeroImage}
+            alt="The homepage view of Twrtle."
+          />
+        </div>
       </main>
       <footer className={styles.footer}>
-        <Typography sx={{ fontSize: "0.5rem", color: "text.secondary" }}>
-          Made by @andy_brooker.
+        <Typography
+          sx={{
+            display: "flex",
+            gap: 0.5,
+            fontSize: "1rem",
+            color: "text.secondary",
+          }}
+        >
+          Made by {"  "}
+          <Typography sx={{ fontWeight: 500, display: "flex" }}>
+            @andy_brooker
+          </Typography>
         </Typography>
       </footer>
     </div>
@@ -69,24 +89,36 @@ function HomepageNav() {
   return (
     <Container
       sx={{
-        display: "flex",
         boxShadow: isOpaque ? 1 : 0,
         backgroundColor: isOpaque ? "white" : "",
         transition: "500ms ease",
+        width: "100vw",
+        "@media screen and (min-width: 1000px)": {
+          maxWidth: "100vw",
+        },
       }}
     >
-      <Container sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-        <Image src="/NavLogo.svg" alt="Twrtle Logo" width={48} height={48} />
-        <Typography
-          sx={{ userSelect: "none" }}
-          variant="large"
-          fontFamily="Clash Grotesk"
-          fontWeight="600"
-        >
-          Twrtle
-        </Typography>
-      </Container>
-      <SignInButton size="medium" />
+      <Box
+        sx={{
+          display: "flex",
+          maxWidth: "1000px",
+          margin: "0 auto",
+          py: 1,
+        }}
+      >
+        <Container sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+          <Image src="/NavLogo.svg" alt="Twrtle Logo" width={48} height={48} />
+          <Typography
+            sx={{ userSelect: "none" }}
+            variant="large"
+            fontFamily="Clash Grotesk"
+            fontWeight="600"
+          >
+            Twrtle
+          </Typography>
+        </Container>
+        <SignInButton size="medium" />
+      </Box>
     </Container>
   );
 }
@@ -108,10 +140,9 @@ function HomepageCopy() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        "@media screen and (min-width: 1000px)": {
-          flexDirection: "row-reverse",
-        },
+        maxWidth: "800px",
+        mt: 8,
+        mb: 4,
       }}
     >
       <Container
@@ -121,32 +152,30 @@ function HomepageCopy() {
           alignItems: "center",
           "@media screen and (min-width: 1000px)": {
             justifyContent: "center",
-            alignItems: "flex-start",
           },
         }}
       >
         <Typography
           sx={{
-            my: 2,
-            textAlign: small_layout ? "left" : "center",
-            "@media screen and (max-width: 1000px)": { fontSize: "38px" },
+            textAlign: "center",
+            fontSize: "36px",
+            lineHeight: "44px",
           }}
           variant="h1"
           component="h1"
         >
-          Consume your favourite tweets mindfully.
+          Consume your favourite tweets mindfully
         </Typography>
         <Typography
           sx={{
-            my: 2,
-            textAlign: small_layout ? "left" : "center",
-            "@media screen and (max-width: 1000px)": { fontSize: "17px" },
+            my: 1,
+            textAlign: "center",
+            fontSize: "20px",
           }}
           variant="large"
           component="h2"
         >
-          Improve your Twitter signal-to-noise ratio with a weekly round-up of
-          your favourite{" "}
+          A weekly round-up of your favourite{" "}
           <TextLoop>
             {loop_items.map((value, index) => (
               <span key={index}>{value}.</span>
@@ -154,17 +183,6 @@ function HomepageCopy() {
           </TextLoop>
         </Typography>
         <SignInButton size="large" />
-        <Typography
-          sx={{
-            textAlign: small_layout ? "left" : "center",
-            maxWidth: "270px",
-          }}
-          variant="micro"
-          component="span"
-        >
-          Join Andy and 100&apos;s of others developing a slower, healthier
-          relationship with social media.
-        </Typography>
       </Container>
     </Container>
   );

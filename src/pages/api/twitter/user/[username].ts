@@ -5,7 +5,7 @@ import createTwitter from '../../../../utils/createTwitter'
 import { NextApiRequest, NextApiResponse } from 'next'
 import type { TwitterApi } from 'twitter-api-v2'
 import { redis } from '../../../../lib/clients/redis'
-import util from "util"
+
 
 const handler = nextConnect()
 
