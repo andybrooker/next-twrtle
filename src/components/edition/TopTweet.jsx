@@ -24,13 +24,51 @@ export default function TopTweet({ authorQuery, tweetQuery }) {
     );
   }
 
+  if (!data?.tweets?.data) {
+  }
+
   return (
     <TopTweetContainer authorQuery={authorQuery}>
-      <TweetContent
-        data={data?.tweets?.data[0]}
-        includes={data?.tweets?.includes}
-      />
-      <TweetInfo data={data?.tweets?.data[0]} />
+      {data?.tweets?.data.length === 0 ? (
+        <>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography sx={{ whiteSpace: "pre-line" }} variant="medium">
+              Hey 👋 <br />
+              <br />
+              Your homepage shows the Top Tweet of all the creators in your
+              edition each week. Looks like you haven&apos;t added any authors
+              yet! <br />
+              <br />
+              Add some on the{" "}
+              <Link
+                sx={{ display: "inline-flex", fontWeight: 400 }}
+                to={"/discover"}
+                component={NextLinkComposed}
+                underline="none"
+              >
+                Discover
+              </Link>{" "}
+              page.
+            </Typography>
+            <Typography
+              sx={{ fontWeight: 400, color: "text.secondary", mt: 2 }}
+              variant="small"
+              component="time"
+            >
+              {DateTime.now().toLocaleString(DateTime.DATE_HUGE)}
+            </Typography>
+          </Box>
+        </>
+      ) : (
+        <>
+          {" "}
+          <TweetContent
+            data={data?.tweets?.data[0]}
+            includes={data?.tweets?.includes}
+          />
+          <TweetInfo data={data?.tweets?.data[0]} />
+        </>
+      )}
     </TopTweetContainer>
   );
 }

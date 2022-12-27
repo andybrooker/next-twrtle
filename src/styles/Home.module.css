@@ -12,7 +12,7 @@
 }
 
 .heroimagediv {
-  border-radius: 32px;
+  border-radius: 24px;
   --shadow-color: 0deg 0% 61%;
   box-shadow:
   0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.54),
