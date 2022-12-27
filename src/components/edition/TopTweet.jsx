@@ -12,6 +12,8 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { TweetContent } from "../Tweet";
 import SkeletonTweet from "../skeletons/SkeletonTweet";
 import { TweetInfo } from "../TweetInfo";
+import NextLinkComposed from "../NextLinkComposed";
+import { DateTime } from "luxon";
 
 export default function TopTweet({ authorQuery, tweetQuery }) {
   const { data, isLoading } = tweetQuery;
@@ -29,17 +31,11 @@ export default function TopTweet({ authorQuery, tweetQuery }) {
 
   return (
     <TopTweetContainer authorQuery={authorQuery}>
-      {data?.tweets?.data.length === 0 ? (
+      {!data?.tweets?.data ? (
         <>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography sx={{ whiteSpace: "pre-line" }} variant="medium">
-              Hey 👋 <br />
-              <br />
-              Your homepage shows the Top Tweet of all the creators in your
-              edition each week. Looks like you haven&apos;t added any authors
-              yet! <br />
-              <br />
-              Add some on the{" "}
+              This author hasn't tweeted this week. Check some more out on the{" "}
               <Link
                 sx={{ display: "inline-flex", fontWeight: 400 }}
                 to={"/discover"}
@@ -61,7 +57,6 @@ export default function TopTweet({ authorQuery, tweetQuery }) {
         </>
       ) : (
         <>
-          {" "}
           <TweetContent
             data={data?.tweets?.data[0]}
             includes={data?.tweets?.includes}
